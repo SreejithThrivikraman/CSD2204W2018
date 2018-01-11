@@ -1,0 +1,625 @@
+MariaDB [csd2204w18]> select * from customers where customersid not between 4 and 7
+    -> ;
++-------------+-----------------+----------+----------------+------------+------------+
+| customersid | name            | nickname | address        | city       | postalcode |
++-------------+-----------------+----------+----------------+------------+------------+
+|           1 | charles         | jaison   | scarborough    | toronto    |     647754 |
+|           2 | sreejith        | kumar    | northyork      | toronto    |     647445 |
+|           2 | sreejith        | kumar    | northyork      | toronto    |     647445 |
+|           3 | charlize theron | cher     | north york     | toronto    |     655345 |
+|           8 | Ashko Charles   | AK       | Washington     | USA        |     632523 |
+|           9 | Tony Special    | Specie   | Oakville       | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village | New Jersey |     635663 |
++-------------+-----------------+----------+----------------+------------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from customers where nickname not IN('BM','AK','Sparrow');
++-------------+-----------------+----------+------------------+---------+------------+
+| customersid | name            | nickname | address          | city    | postalcode |
++-------------+-----------------+----------+------------------+---------+------------+
+|           1 | charles         | jaison   | scarborough      | toronto |     647754 |
+|           2 | sreejith        | kumar    | northyork        | toronto |     647445 |
+|           2 | sreejith        | kumar    | northyork        | toronto |     647445 |
+|           3 | charlize theron | cher     | north york       | toronto |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil  |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada  |     657645 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto |     657543 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork |     657523 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA     |     632433 |
++-------------+-----------------+----------+------------------+---------+------------+
+9 rows in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select name,city,customersid from customers;
++-----------------+------------+-------------+
+| name            | city       | customersid |
++-----------------+------------+-------------+
+| charles         | toronto    |           1 |
+| sreejith        | toronto    |           2 |
+| sreejith        | toronto    |           2 |
+| charlize theron | toronto    |           3 |
+| daniel jack     | Brazil     |           4 |
+| Donnan newman   | Canada     |           5 |
+| Eston.M         | Toronto    |           6 |
+| Bobby Chacko    | Newyork    |           7 |
+| Ashko Charles   | USA        |           8 |
+| Tony Special    | GTA        |           9 |
+| Jack P          | New Jersey |          10 |
++-----------------+------------+-------------+
+11 rows in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select customersid,name AS "fullname" from customers where nickname not in('BM','AK');
++-------------+-----------------+
+| customersid | fullname        |
++-------------+-----------------+
+|           1 | charles         |
+|           2 | sreejith        |
+|           2 | sreejith        |
+|           3 | charlize theron |
+|           4 | daniel jack     |
+|           5 | Donnan newman   |
+|           6 | Eston.M         |
+|           7 | Bobby Chacko    |
+|           9 | Tony Special    |
+|          10 | Jack P          |
++-------------+-----------------+
+10 rows in set (0.00 sec)
+
+
+s
+
+MariaDB [csd2204w18]> select count(name) from customers where name LIKE 'A%';
++-------------+
+| count(name) |
++-------------+
+|           1 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select count(city) as "customers having name with a" from customers where name like's%';
++------------------------------+
+| customers having name with a |
++------------------------------+
+|                            2 |
++------------------------------+
+1 row in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select distinct(city) from customers;
++------------+
+| city       |
++------------+
+| toronto    |
+| Brazil     |
+| Canada     |
+| Newyork    |
+| USA        |
+| GTA        |
+| New Jersey |
++------------+
+7 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select count(city) from customers where city like't%';
++-------------+
+| count(city) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from customers
+    -> ;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           2 | sreejith        | kumar    | northyork        | toronto    |     647445 |
+|           2 | sreejith        | kumar    | northyork        | toronto    |     647445 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
++-------------+-----------------+----------+------------------+------------+------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select count(distinct city) from customers;
++----------------------+
+| count(distinct city) |
++----------------------+
+|                    7 |
++----------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select distinct (city) from customers;
++------------+
+| city       |
++------------+
+| toronto    |
+| Brazil     |
+| Canada     |
+| Newyork    |
+| USA        |
+| GTA        |
+| New Jersey |
++------------+
+7 rows in set (0.00 sec)
+
+
+
+MariaDB [csd2204w18]> select distinct city,count(city)name from customers group by city;
++------------+------+
+| city       | name |
++------------+------+
+| Brazil     |    1 |
+| Canada     |    2 |
+| GTA        |    1 |
+| New Jersey |    1 |
+| Newyork    |    1 |
+| toronto    |    3 |
+| USA        |    1 |
++------------+------+
+7 rows in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select *from customers order by name asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by name dec;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'dec' at line 1
+MariaDB [csd2204w18]> select *from customers order by name desc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+
+
+MariaDB [csd2204w18]> select *from customers order by name asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by name dec;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'dec' at line 1
+MariaDB [csd2204w18]> select *from customers order by name desc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by postalcode asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by cities asc;
+ERROR 1054 (42S22): Unknown column 'cities' in 'order clause'
+MariaDB [csd2204w18]> select *from customers order by city asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select *from customers order by city,postalcode asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by postalcode,city asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by city,postalcode asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by city asc,postalcode desc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select *from customers order by customersid asc, name desc, city asc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> select *from customers order by customersid desc, name asc, city desc;
++-------------+-----------------+----------+------------------+------------+------------+
+| customersid | name            | nickname | address          | city       | postalcode |
++-------------+-----------------+----------+------------------+------------+------------+
+|          10 | Jack P          | Sparrow  | Oaster village   | New Jersey |     635663 |
+|           9 | Tony Special    | Specie   | Oakville         | GTA        |     632433 |
+|           8 | Ashko Charles   | AK       | Washington       | USA        |     632523 |
+|           7 | Bobby Chacko    | chac     | kennedy          | Newyork    |     657523 |
+|           6 | Eston.M         | M        | 21 York.DV       | Toronto    |     657543 |
+|           5 | Donnan newman   | New      | 250 Carlson blvd | Canada     |     657645 |
+|           4 | daniel jack     | DJ       | Spartan Building | Brazil     |     655345 |
+|           3 | charlize theron | cher     | north york       | toronto    |     655345 |
+|           2 | sreejith        | kumar    | northyork        | canada     |     876578 |
+|           1 | charles         | jaison   | scarborough      | toronto    |     647754 |
++-------------+-----------------+----------+------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select min(postalcode) from customers;
++-----------------+
+| min(postalcode) |
++-----------------+
+|          632433 |
++-----------------+
+1 row in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> select max(customersid) from customers;
++------------------+
+| max(customersid) |
++------------------+
+|               10 |
++------------------+
+1 row in set (0.00 sec)
+
+
+Setting environment for using XAMPP for Windows.
+726943@128-IMAC23 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+MariaDB [(none)]> create database csd2204w18;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use csd2204w18;create table c1(
+Database changed
+    ->        customersID int(2),
+    ->        name varchar(40),
+    ->        nickname varchar(10),
+    ->        address varchar(50),
+    ->        city varchar(30),
+    ->        postalCode int(6)
+    ->        );
+Query OK, 0 rows affected (1.41 sec)
+
+MariaDB [csd2204w18]> insert into customers values (1,'Ashley', 'Ash','32 Washington Street','WDC',321200);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (2,'Bob Marley', 'Bm','Keele Street','Toronto',300102);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (3,'Charles theron', 'cher','north york','Toronto',655345);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (4,'Dental Jack', 'DJ','Spartan Building, East','Brazil',341020);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (5,'Domma Newman', 'New','250 Carlson blvd','Canada',657645);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (6,'Eston.M', 'M','21 York.DV','Toronto',657543);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (7,'Ashko Charles','AK','Washington','USA',632523);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (8,'Bobby Chako','chak','kennedy','New York',632543);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (9,'Tont Special','Specie','Oakville','GTA',6324533);
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+MariaDB [csd2204w18]> insert into customers values (10,'Jack P','Sparrow','Oaster village','New jersey',635663);create table customers(
+ERROR 1146 (42S02): Table 'csd2204w18.customers' doesn't exist
+    ->        customersID int(2),
+    ->        name varchar(40),
+    ->        nickname varchar(10),
+    ->        address varchar(50),
+    ->        city varchar(30),
+    ->        postalCode int(6)
+    ->        );
+Query OK, 0 rows affected (1.10 sec)
+
+MariaDB [csd2204w18]> insert into customers values (1,'Ashley', 'Ash','32 Washington Street','WDC',321200);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [csd2204w18]> insert into customers values (2,'Bob Marley', 'Bm','Keele Street','Toronto',300102);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [csd2204w18]> insert into customers values (3,'Charles theron', 'cher','north york','Toronto',655345);
+Query OK, 1 row affected (0.21 sec)
+
+MariaDB [csd2204w18]> insert into customers values (4,'Dental Jack', 'DJ','Spartan Building, East','Brazil',341020);
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [csd2204w18]> insert into customers values (5,'Domma Newman', 'New','250 Carlson blvd','Canada',657645);
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [csd2204w18]> insert into customers values (6,'Eston.M', 'M','21 York.DV','Toronto',657543);
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [csd2204w18]> insert into customers values (7,'Ashko Charles','AK','Washington','USA',632523);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [csd2204w18]> insert into customers values (8,'Bobby Chako','chak','kennedy','New York',632543);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [csd2204w18]> insert into customers values (9,'Tont Special','Specie','Oakville','GTA',6324533);
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [csd2204w18]> insert into customers values (10,'Jack P','Sparrow','Oaster village','New jersey',635663);
+Query OK, 1 row affected (0.17 sec)
+
+MariaDB [csd2204w18]> select * from customers;
++-------------+----------------+----------+------------------------+------------+------------+
+| customersID | name           | nickname | address                | city       | postalCode |
++-------------+----------------+----------+------------------------+------------+------------+
+|           1 | Ashley         | Ash      | 32 Washington Street   | WDC        |     321200 |
+|           2 | Bob Marley     | Bm       | Keele Street           | Toronto    |     300102 |
+|           3 | Charles theron | cher     | north york             | Toronto    |     655345 |
+|           4 | Dental Jack    | DJ       | Spartan Building, East | Brazil     |     341020 |
+|           5 | Domma Newman   | New      | 250 Carlson blvd       | Canada     |     657645 |
+|           6 | Eston.M        | M        | 21 York.DV             | Toronto    |     657543 |
+|           7 | Ashko Charles  | AK       | Washington             | USA        |     632523 |
+|           8 | Bobby Chako    | chak     | kennedy                | New York   |     632543 |
+|           9 | Tont Special   | Specie   | Oakville               | GTA        |    6324533 |
+|          10 | Jack P         | Sparrow  | Oaster village         | New jersey |     635663 |
++-------------+----------------+----------+------------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from customers order by customersID desc;
++-------------+----------------+----------+------------------------+------------+------------+
+| customersID | name           | nickname | address                | city       | postalCode |
++-------------+----------------+----------+------------------------+------------+------------+
+|          10 | Jack P         | Sparrow  | Oaster village         | New jersey |     635663 |
+|           9 | Tont Special   | Specie   | Oakville               | GTA        |    6324533 |
+|           8 | Bobby Chako    | chak     | kennedy                | New York   |     632543 |
+|           7 | Ashko Charles  | AK       | Washington             | USA        |     632523 |
+|           6 | Eston.M        | M        | 21 York.DV             | Toronto    |     657543 |
+|           5 | Domma Newman   | New      | 250 Carlson blvd       | Canada     |     657645 |
+|           4 | Dental Jack    | DJ       | Spartan Building, East | Brazil     |     341020 |
+|           3 | Charles theron | cher     | north york             | Toronto    |     655345 |
+|           2 | Bob Marley     | Bm       | Keele Street           | Toronto    |     300102 |
+|           1 | Ashley         | Ash      | 32 Washington Street   | WDC        |     321200 |
++-------------+----------------+----------+------------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from customers order by customersID desc limit 3;
++-------------+--------------+----------+----------------+------------+------------+
+| customersID | name         | nickname | address        | city       | postalCode |
++-------------+--------------+----------+----------------+------------+------------+
+|          10 | Jack P       | Sparrow  | Oaster village | New jersey |     635663 |
+|           9 | Tont Special | Specie   | Oakville       | GTA        |    6324533 |
+|           8 | Bobby Chako  | chak     | kennedy        | New York   |     632543 |
++-------------+--------------+----------+----------------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from (select * from customers order by customersID desc limit 3) order by customersID asc;
+ERROR 1248 (42000): Every derived table must have its own alias
+MariaDB [csd2204w18]> select * from (select * from customers order by customersID desc limit 3)em order by customersID asc;
++-------------+--------------+----------+----------------+------------+------------+
+| customersID | name         | nickname | address        | city       | postalCode |
++-------------+--------------+----------+----------------+------------+------------+
+|           8 | Bobby Chako  | chak     | kennedy        | New York   |     632543 |
+|           9 | Tont Special | Specie   | Oakville       | GTA        |    6324533 |
+|          10 | Jack P       | Sparrow  | Oaster village | New jersey |     635663 |
++-------------+--------------+----------+----------------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from customers;
++-------------+----------------+----------+------------------------+------------+------------+
+| customersID | name           | nickname | address                | city       | postalCode |
++-------------+----------------+----------+------------------------+------------+------------+
+|           1 | Ashley         | Ash      | 32 Washington Street   | WDC        |     321200 |
+|           2 | Bob Marley     | Bm       | Keele Street           | Toronto    |     300102 |
+|           3 | Charles theron | cher     | north york             | Toronto    |     655345 |
+|           4 | Dental Jack    | DJ       | Spartan Building, East | Brazil     |     341020 |
+|           5 | Domma Newman   | New      | 250 Carlson blvd       | Canada     |     657645 |
+|           6 | Eston.M        | M        | 21 York.DV             | Toronto    |     657543 |
+|           7 | Ashko Charles  | AK       | Washington             | USA        |     632523 |
+|           8 | Bobby Chako    | chak     | kennedy                | New York   |     632543 |
+|           9 | Tont Special   | Specie   | Oakville               | GTA        |    6324533 |
+|          10 | Jack P         | Sparrow  | Oaster village         | New jersey |     635663 |
++-------------+----------------+----------+------------------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> insert into customers values ('11','thomas');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [csd2204w18]> insert into customers (customersID,name) values ('11','thomas');
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [csd2204w18]> select * from customers;
++-------------+----------------+----------+------------------------+------------+------------+
+| customersID | name           | nickname | address                | city       | postalCode |
++-------------+----------------+----------+------------------------+------------+------------+
+|           1 | Ashley         | Ash      | 32 Washington Street   | WDC        |     321200 |
+|           2 | Bob Marley     | Bm       | Keele Street           | Toronto    |     300102 |
+|           3 | Charles theron | cher     | north york             | Toronto    |     655345 |
+|           4 | Dental Jack    | DJ       | Spartan Building, East | Brazil     |     341020 |
+|           5 | Domma Newman   | New      | 250 Carlson blvd       | Canada     |     657645 |
+|           6 | Eston.M        | M        | 21 York.DV             | Toronto    |     657543 |
+|           7 | Ashko Charles  | AK       | Washington             | USA        |     632523 |
+|           8 | Bobby Chako    | chak     | kennedy                | New York   |     632543 |
+|           9 | Tont Special   | Specie   | Oakville               | GTA        |    6324533 |
+|          10 | Jack P         | Sparrow  | Oaster village         | New jersey |     635663 |
+|          11 | thomas         | NULL     | NULL                   | NULL       |       NULL |
++-------------+----------------+----------+------------------------+------------+------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> insert into customers (customersID,name,address,city,postalCode) values ('12','tony','Scarborough',691019);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [csd2204w18]> insert into customers (customersID,name,address,city,postalCode) values ('12','tony','Scarborough','Toronto'691019);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '691019)' at line 1
+MariaDB [csd2204w18]> insert into customers (customersID,name,address,city,postalCode) values ('12','tony','Scarborough','Toronto',691019);
+Query OK, 1 row affected (0.13 sec)
+
+MariaDB [csd2204w18]> select * from customers;
++-------------+----------------+----------+------------------------+------------+------------+
+| customersID | name           | nickname | address                | city       | postalCode |
++-------------+----------------+----------+------------------------+------------+------------+
+|           1 | Ashley         | Ash      | 32 Washington Street   | WDC        |     321200 |
+|           2 | Bob Marley     | Bm       | Keele Street           | Toronto    |     300102 |
+|           3 | Charles theron | cher     | north york             | Toronto    |     655345 |
+|           4 | Dental Jack    | DJ       | Spartan Building, East | Brazil     |     341020 |
+|           5 | Domma Newman   | New      | 250 Carlson blvd       | Canada     |     657645 |
+|           6 | Eston.M        | M        | 21 York.DV             | Toronto    |     657543 |
+|           7 | Ashko Charles  | AK       | Washington             | USA        |     632523 |
+|           8 | Bobby Chako    | chak     | kennedy                | New York   |     632543 |
+|           9 | Tont Special   | Specie   | Oakville               | GTA        |    6324533 |
+|          10 | Jack P         | Sparrow  | Oaster village         | New jersey |     635663 |
+|          11 | thomas         | NULL     | NULL                   | NULL       |       NULL |
+|          12 | tony           | NULL     | Scarborough            | Toronto    |     691019 |
++-------------+----------------+----------+------------------------+------------+------------+
+12 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> exit
+Bye
+
+726943@128-IMAC23 c:\xampp
+# mysqldump -u root -p csd2204w18 > Day4.sql
+Enter password:
+
+726943@128-IMAC23 c:\xampp
+# jkp$ mysqldump -u root -p csd2204w18 > Day4.sql
+'jkp$' is not recognized as an internal or external command,
+operable program or batch file.
+
+726943@128-IMAC23 c:\xampp
+#  mysqldump -u root -p csd2204w18 > Day4.sql
+Enter password:
+
+726943@128-IMAC23 c:\xampp
+#
