@@ -1,0 +1,4442 @@
+
+Setting environment for using XAMPP for Windows.
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p csd2204w18 < C:/xampp/db.sql
+Enter password:
+ERROR 1049 (42000): Unknown database 'csd2204w18'
+
+726943@128-IMAC35 c:\xampp
+# anonymous
+'anonymous' is not recognized as an internal or external command,
+operable program or batch file.
+
+726943@128-IMAC35 c:\xampp
+# create database csd2204w18;
+'create' is not recognized as an internal or external command,
+operable program or batch file.
+
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database csd2204w18;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]>               use csd2204w18;
+Database changed
+MariaDB [csd2204w18]> exit
+Bye
+
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p csd2204w18 < C:/xampp/db.sql
+Enter password:
+
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p csd2204w18 < C:/xampp/animals.sql
+Enter password:
+id      name
+1       dog
+2       cat
+3       penguin
+4       lax
+5       whale
+6       ostrich
+
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p csd2204w18 < C:/xampp/products_manufacturers.sql
+Enter password:
+
+726943@128-IMAC35 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 7
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show tables;
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]>               use csd2204w18;
+Database changed
+MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| animals              |
+| countries            |
+| departments          |
+| employees            |
+| job_history          |
+| jobs                 |
+| locations            |
+| manu                 |
+| pet                  |
+| products             |
+| regions              |
++----------------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> show jobs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'jobs' at line 1
+MariaDB [csd2204w18]> desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)  | NO   | PRI |         |       |
+| JOB_TITLE  | varchar(35)  | NO   |     | NULL    |       |
+| MIN_SALARY | decimal(6,0) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id, first_name from employees AS A where salary > ( Select AVG(salary) from employees where department_id = A.department_id);
++-------------+------------+
+| employee_id | first_name |
++-------------+------------+
+|         100 | Steven     |
+|         103 | Alexander  |
+|         104 | Bruce      |
+|         108 | Nancy      |
+|         109 | Daniel     |
+|         114 | Den        |
+|         120 | Matthew    |
+|         121 | Adam       |
+|         122 | Payam      |
+|         123 | Shanta     |
+|         124 | Kevin      |
+|         137 | Renske     |
+|         141 | Trenna     |
+|         145 | John       |
+|         146 | Karen      |
+|         147 | Alberto    |
+|         148 | Gerald     |
+|         149 | Eleni      |
+|         150 | Peter      |
+|         151 | David      |
+|         152 | Peter      |
+|         156 | Janette    |
+|         157 | Patrick    |
+|         158 | Allan      |
+|         162 | Clara      |
+|         163 | Danielle   |
+|         168 | Lisa       |
+|         169 | Harrison   |
+|         170 | Tayler     |
+|         174 | Ellen      |
+|         184 | Nandita    |
+|         185 | Alexis     |
+|         188 | Kelly      |
+|         189 | Jennifer   |
+|         192 | Sarah      |
+|         193 | Britney    |
+|         201 | Michael    |
+|         205 | Shelley    |
++-------------+------------+
+38 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id, first_name from employees AS A where salary < ( Select AVG(salary) from employees where department_id = A.department_id);
++-------------+-------------+
+| employee_id | first_name  |
++-------------+-------------+
+|         101 | Neena       |
+|         102 | Lex         |
+|         105 | David       |
+|         106 | Valli       |
+|         107 | Diana       |
+|         110 | John        |
+|         111 | Ismael      |
+|         112 | Jose Manuel |
+|         113 | Luis        |
+|         115 | Alexander   |
+|         116 | Shelli      |
+|         117 | Sigal       |
+|         118 | Guy         |
+|         119 | Karen       |
+|         125 | Julia       |
+|         126 | Irene       |
+|         127 | James       |
+|         128 | Steven      |
+|         129 | Laura       |
+|         130 | Mozhe       |
+|         131 | James       |
+|         132 | TJ          |
+|         133 | Jason       |
+|         134 | Michael     |
+|         135 | Ki          |
+|         136 | Hazel       |
+|         138 | Stephen     |
+|         139 | John        |
+|         140 | Joshua      |
+|         142 | Curtis      |
+|         143 | Randall     |
+|         144 | Peter       |
+|         153 | Christopher |
+|         154 | Nanette     |
+|         155 | Oliver      |
+|         159 | Lindsey     |
+|         160 | Louise      |
+|         161 | Sarath      |
+|         164 | Mattea      |
+|         165 | David       |
+|         166 | Sundar      |
+|         167 | Amit        |
+|         171 | William     |
+|         172 | Elizabeth   |
+|         173 | Sundita     |
+|         175 | Alyssa      |
+|         176 | Jonathon    |
+|         177 | Jack        |
+|         179 | Charles     |
+|         180 | Winston     |
+|         181 | Jean        |
+|         182 | Martha      |
+|         183 | Girard      |
+|         186 | Julia       |
+|         187 | Anthony     |
+|         190 | Timothy     |
+|         191 | Randall     |
+|         194 | Samuel      |
+|         195 | Vance       |
+|         196 | Alana       |
+|         197 | Kevin       |
+|         198 | Donald      |
+|         199 | Douglas     |
+|         202 | Pat         |
+|         206 | William     |
++-------------+-------------+
+65 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id, first_name,last_name,salary from employees As A
+    -> where salary < (select ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id,department_name from departments
+    -> where ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [csd2204w18]> select department_id,department_name from departments,locations
+    -> where country;
+ERROR 1054 (42S22): Unknown column 'country' in 'where clause'
+MariaDB [csd2204w18]> select department_id,department_name from departments A,locations B
+    -> where B.country_id = ;''
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+    -> select * from locations;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '''
+select * from locations' at line 1
+MariaDB [csd2204w18]> select * from locations;
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+| LOCATION_ID | STREET_ADDRESS            | POSTAL_CODE  | CITY                | STATE_PROVINCE    | COUNTRY_ID |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+|        1000 | 1297 Via Cola di Rie      | 989          | Roma                |                   | IT         |
+|        1100 | 93091 Calle della Testa   | 10934        | Venice              |                   | IT         |
+|        1200 | 2017 Shinjuku-ku          | 1689         | Tokyo               | Tokyo Prefecture  | JP         |
+|        1300 | 9450 Kamiya-cho           | 6823         | Hiroshima           |                   | JP         |
+|        1400 | 2014 Jabberwocky Rd       | 26192        | Southlake           | Texas             | US         |
+|        1500 | 2011 Interiors Blvd       | 99236        | South San Francisco | California        | US         |
+|        1600 | 2007 Zagora St            | 50090        | South Brunswick     | New Jersey        | US         |
+|        1700 | 2004 Charade Rd           | 98199        | Seattle             | Washington        | US         |
+|        1800 | 147 Spadina Ave           | M5V 2L7      | Toronto             | Ontario           | CA         |
+|        1900 | 6092 Boxwood St           | YSW 9T2      | Whitehorse          | Yukon             | CA         |
+|        2000 | 40-5-12 Laogianggen       | 190518       | Beijing             |                   | CN         |
+|        2100 | 1298 Vileparle (E)        | 490231       | Bombay              | Maharashtra       | IN         |
+|        2200 | 12-98 Victoria Street     | 2901         | Sydney              | New South Wales   | AU         |
+|        2300 | 198 Clementi North        | 540198       | Singapore           |                   | SG         |
+|        2400 | 8204 Arthur St            |              | London              |                   | UK         |
+|        2500 | "Magdalen Centre          |  The Oxford  | OX9 9ZB             | Oxford            | Ox         |
+|        2600 | 9702 Chester Road         | 9629850293   | Stretford           | Manchester        | UK         |
+|        2700 | Schwanthalerstr. 7031     | 80925        | Munich              | Bavaria           | DE         |
+|        2800 | Rua Frei Caneca 1360      | 01307-002    | Sao Paulo           | Sao Paulo         | BR         |
+|        2900 | 20 Rue des Corps-Saints   | 1730         | Geneva              | Geneve            | CH         |
+|        3000 | Murtenstrasse 921         | 3095         | Bern                | BE                | CH         |
+|        3100 | Pieter Breughelstraat 837 | 3029SK       | Utrecht             | Utrecht           | NL         |
+|        3200 | Mariano Escobedo 9991     | 11932        | Mexico City         | "Distrito Federal | "          |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id,department_name from departments A,locations B
+    -> where country_id ='CA' and A.department_id = B.department_id;
+ERROR 1054 (42S22): Unknown column 'B.department_id' in 'where clause'
+MariaDB [csd2204w18]> select department_id,department_name from departments A,locations B
+    -> where country_id ='CA' and A.location_id = B.location_id;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|            20 | Marketing       |
++---------------+-----------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select employee_id,first_name,salary from employees where department_id IN
+    -> (Select department_id from departments where location_id IN (select location_id from locations where country_id = ‘CA’));
+    `> ;
+    `> Select employee_id,first_name,salary from employees where salary < (select MIN(salary) from employees where department_id IN (Select department_id from departments where location_id IN (select location_id from locations where country_id = ‘CA’));Select employee_id,first_name,salary from employees where salary < (select MIN(salary) from
+    '> '
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CA'));Select employee_id,first_name,salary from employees where salary < (select' at line 2
+MariaDB [csd2204w18]> select employee_id,first_name,salary from employees where salary <
+    -> (select MIN(salary) from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id ='CA'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [csd2204w18]> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc departmentsl
+    -> desc departments;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc departments' at line 2
+MariaDB [csd2204w18]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_name from departments,locations
+    -> where location_id IN ('CA');
+ERROR 1052 (23000): Column 'location_id' in where clause is ambiguous
+MariaDB [csd2204w18]> select department_name from departments A,locations B
+    -> where B.location_id IN ('CA') and A.location_id = B.location_id;
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_name from departments A,locations B
+    -> where b.location_id IN ('CA');
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select A.department_name from departments A,locations B
+    -> where b.country_id IN ('CA');
++----------------------+
+| department_name      |
++----------------------+
+| Administration       |
+| Administration       |
+| Marketing            |
+| Marketing            |
+| Purchasing           |
+| Purchasing           |
+| Human Resources      |
+| Human Resources      |
+| Shipping             |
+| Shipping             |
+| IT                   |
+| IT                   |
+| Public Relations     |
+| Public Relations     |
+| Sales                |
+| Sales                |
+| Executive            |
+| Executive            |
+| Finance              |
+| Finance              |
+| Accounting           |
+| Accounting           |
+| Treasury             |
+| Treasury             |
+| Corporate Tax        |
+| Corporate Tax        |
+| Control And Credit   |
+| Control And Credit   |
+| Shareholder Services |
+| Shareholder Services |
+| Benefits             |
+| Benefits             |
+| Manufacturing        |
+| Manufacturing        |
+| Construction         |
+| Construction         |
+| Contracting          |
+| Contracting          |
+| Operations           |
+| Operations           |
+| IT Support           |
+| IT Support           |
+| NOC                  |
+| NOC                  |
+| IT Helpdesk          |
+| IT Helpdesk          |
+| Government Sales     |
+| Government Sales     |
+| Retail Sales         |
+| Retail Sales         |
+| Recruiting           |
+| Recruiting           |
+| Payroll              |
+| Payroll              |
++----------------------+
+54 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select A.department_name from departments A,locations B
+    -> where b.country_id IN ('US');
++----------------------+
+| department_name      |
++----------------------+
+| Administration       |
+| Administration       |
+| Administration       |
+| Administration       |
+| Marketing            |
+| Marketing            |
+| Marketing            |
+| Marketing            |
+| Purchasing           |
+| Purchasing           |
+| Purchasing           |
+| Purchasing           |
+| Human Resources      |
+| Human Resources      |
+| Human Resources      |
+| Human Resources      |
+| Shipping             |
+| Shipping             |
+| Shipping             |
+| Shipping             |
+| IT                   |
+| IT                   |
+| IT                   |
+| IT                   |
+| Public Relations     |
+| Public Relations     |
+| Public Relations     |
+| Public Relations     |
+| Sales                |
+| Sales                |
+| Sales                |
+| Sales                |
+| Executive            |
+| Executive            |
+| Executive            |
+| Executive            |
+| Finance              |
+| Finance              |
+| Finance              |
+| Finance              |
+| Accounting           |
+| Accounting           |
+| Accounting           |
+| Accounting           |
+| Treasury             |
+| Treasury             |
+| Treasury             |
+| Treasury             |
+| Corporate Tax        |
+| Corporate Tax        |
+| Corporate Tax        |
+| Corporate Tax        |
+| Control And Credit   |
+| Control And Credit   |
+| Control And Credit   |
+| Control And Credit   |
+| Shareholder Services |
+| Shareholder Services |
+| Shareholder Services |
+| Shareholder Services |
+| Benefits             |
+| Benefits             |
+| Benefits             |
+| Benefits             |
+| Manufacturing        |
+| Manufacturing        |
+| Manufacturing        |
+| Manufacturing        |
+| Construction         |
+| Construction         |
+| Construction         |
+| Construction         |
+| Contracting          |
+| Contracting          |
+| Contracting          |
+| Contracting          |
+| Operations           |
+| Operations           |
+| Operations           |
+| Operations           |
+| IT Support           |
+| IT Support           |
+| IT Support           |
+| IT Support           |
+| NOC                  |
+| NOC                  |
+| NOC                  |
+| NOC                  |
+| IT Helpdesk          |
+| IT Helpdesk          |
+| IT Helpdesk          |
+| IT Helpdesk          |
+| Government Sales     |
+| Government Sales     |
+| Government Sales     |
+| Government Sales     |
+| Retail Sales         |
+| Retail Sales         |
+| Retail Sales         |
+| Retail Sales         |
+| Recruiting           |
+| Recruiting           |
+| Recruiting           |
+| Recruiting           |
+| Payroll              |
+| Payroll              |
+| Payroll              |
+| Payroll              |
++----------------------+
+108 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (selct location_id from locations
+    -> where country_id ='US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'location_id from locations
+where country_id ='US')' at line 1
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations
+    -> where country_id ='US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select distinct manager_id from employees;
++------------+
+| manager_id |
++------------+
+|          0 |
+|        100 |
+|        101 |
+|        102 |
+|        103 |
+|        108 |
+|        114 |
+|        120 |
+|        121 |
+|        122 |
+|        123 |
+|        124 |
+|        145 |
+|        146 |
+|        147 |
+|        148 |
+|        149 |
+|        201 |
+|        205 |
++------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name from employee
+    -> where employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1146 (42S02): Table 'csd2204w18.employee' doesn't exist
+MariaDB [csd2204w18]> select employee_id,first_name,last_name from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees);
++-------------+-------------+-------------+
+| employee_id | first_name  | last_name   |
++-------------+-------------+-------------+
+|         104 | Bruce       | Ernst       |
+|         105 | David       | Austin      |
+|         106 | Valli       | Pataballa   |
+|         107 | Diana       | Lorentz     |
+|         109 | Daniel      | Faviet      |
+|         110 | John        | Chen        |
+|         111 | Ismael      | Sciarra     |
+|         112 | Jose Manuel | Urman       |
+|         113 | Luis        | Popp        |
+|         115 | Alexander   | Khoo        |
+|         116 | Shelli      | Baida       |
+|         117 | Sigal       | Tobias      |
+|         118 | Guy         | Himuro      |
+|         119 | Karen       | Colmenares  |
+|         125 | Julia       | Nayer       |
+|         126 | Irene       | Mikkilineni |
+|         127 | James       | Landry      |
+|         128 | Steven      | Markle      |
+|         129 | Laura       | Bissot      |
+|         130 | Mozhe       | Atkinson    |
+|         131 | James       | Marlow      |
+|         132 | TJ          | Olson       |
+|         133 | Jason       | Mallin      |
+|         134 | Michael     | Rogers      |
+|         135 | Ki          | Gee         |
+|         136 | Hazel       | Philtanker  |
+|         137 | Renske      | Ladwig      |
+|         138 | Stephen     | Stiles      |
+|         139 | John        | Seo         |
+|         140 | Joshua      | Patel       |
+|         141 | Trenna      | Rajs        |
+|         142 | Curtis      | Davies      |
+|         143 | Randall     | Matos       |
+|         144 | Peter       | Vargas      |
+|         150 | Peter       | Tucker      |
+|         151 | David       | Bernstein   |
+|         152 | Peter       | Hall        |
+|         153 | Christopher | Olsen       |
+|         154 | Nanette     | Cambrault   |
+|         155 | Oliver      | Tuvault     |
+|         156 | Janette     | King        |
+|         157 | Patrick     | Sully       |
+|         158 | Allan       | McEwen      |
+|         159 | Lindsey     | Smith       |
+|         160 | Louise      | Doran       |
+|         161 | Sarath      | Sewall      |
+|         162 | Clara       | Vishney     |
+|         163 | Danielle    | Greene      |
+|         164 | Mattea      | Marvins     |
+|         165 | David       | Lee         |
+|         166 | Sundar      | Ande        |
+|         167 | Amit        | Banda       |
+|         168 | Lisa        | Ozer        |
+|         169 | Harrison    | Bloom       |
+|         170 | Tayler      | Fox         |
+|         171 | William     | Smith       |
+|         172 | Elizabeth   | Bates       |
+|         173 | Sundita     | Kumar       |
+|         174 | Ellen       | Abel        |
+|         175 | Alyssa      | Hutton      |
+|         176 | Jonathon    | Taylor      |
+|         177 | Jack        | Livingston  |
+|         178 | Kimberely   | Grant       |
+|         179 | Charles     | Johnson     |
+|         180 | Winston     | Taylor      |
+|         181 | Jean        | Fleaur      |
+|         182 | Martha      | Sullivan    |
+|         183 | Girard      | Geoni       |
+|         184 | Nandita     | Sarchand    |
+|         185 | Alexis      | Bull        |
+|         186 | Julia       | Dellinger   |
+|         187 | Anthony     | Cabrio      |
+|         188 | Kelly       | Chung       |
+|         189 | Jennifer    | Dilly       |
+|         190 | Timothy     | Gates       |
+|         191 | Randall     | Perkins     |
+|         192 | Sarah       | Bell        |
+|         193 | Britney     | Everett     |
+|         194 | Samuel      | McCain      |
+|         195 | Vance       | Jones       |
+|         196 | Alana       | Walsh       |
+|         197 | Kevin       | Feeney      |
+|         198 | Donald      | OConnell    |
+|         199 | Douglas     | Grant       |
+|         200 | Jennifer    | Whalen      |
+|         202 | Pat         | Fay         |
+|         203 | Susan       | Mavris      |
+|         204 | Hermann     | Baer        |
+|         206 | William     | Gietz       |
++-------------+-------------+-------------+
+89 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name from employee
+    -> select employee_id,first_name,last_name,department_id from employee
+    -> where employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select employee_id,first_name,last_name,department_id from employee
+where employ' at line 2
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees);
++-------------+-------------+-------------+---------------+
+| employee_id | first_name  | last_name   | department_id |
++-------------+-------------+-------------+---------------+
+|         104 | Bruce       | Ernst       |            60 |
+|         105 | David       | Austin      |            60 |
+|         106 | Valli       | Pataballa   |            60 |
+|         107 | Diana       | Lorentz     |            60 |
+|         109 | Daniel      | Faviet      |           100 |
+|         110 | John        | Chen        |           100 |
+|         111 | Ismael      | Sciarra     |           100 |
+|         112 | Jose Manuel | Urman       |           100 |
+|         113 | Luis        | Popp        |           100 |
+|         115 | Alexander   | Khoo        |            30 |
+|         116 | Shelli      | Baida       |            30 |
+|         117 | Sigal       | Tobias      |            30 |
+|         118 | Guy         | Himuro      |            30 |
+|         119 | Karen       | Colmenares  |            30 |
+|         125 | Julia       | Nayer       |            50 |
+|         126 | Irene       | Mikkilineni |            50 |
+|         127 | James       | Landry      |            50 |
+|         128 | Steven      | Markle      |            50 |
+|         129 | Laura       | Bissot      |            50 |
+|         130 | Mozhe       | Atkinson    |            50 |
+|         131 | James       | Marlow      |            50 |
+|         132 | TJ          | Olson       |            50 |
+|         133 | Jason       | Mallin      |            50 |
+|         134 | Michael     | Rogers      |            50 |
+|         135 | Ki          | Gee         |            50 |
+|         136 | Hazel       | Philtanker  |            50 |
+|         137 | Renske      | Ladwig      |            50 |
+|         138 | Stephen     | Stiles      |            50 |
+|         139 | John        | Seo         |            50 |
+|         140 | Joshua      | Patel       |            50 |
+|         141 | Trenna      | Rajs        |            50 |
+|         142 | Curtis      | Davies      |            50 |
+|         143 | Randall     | Matos       |            50 |
+|         144 | Peter       | Vargas      |            50 |
+|         150 | Peter       | Tucker      |            80 |
+|         151 | David       | Bernstein   |            80 |
+|         152 | Peter       | Hall        |            80 |
+|         153 | Christopher | Olsen       |            80 |
+|         154 | Nanette     | Cambrault   |            80 |
+|         155 | Oliver      | Tuvault     |            80 |
+|         156 | Janette     | King        |            80 |
+|         157 | Patrick     | Sully       |            80 |
+|         158 | Allan       | McEwen      |            80 |
+|         159 | Lindsey     | Smith       |            80 |
+|         160 | Louise      | Doran       |            80 |
+|         161 | Sarath      | Sewall      |            80 |
+|         162 | Clara       | Vishney     |            80 |
+|         163 | Danielle    | Greene      |            80 |
+|         164 | Mattea      | Marvins     |            80 |
+|         165 | David       | Lee         |            80 |
+|         166 | Sundar      | Ande        |            80 |
+|         167 | Amit        | Banda       |            80 |
+|         168 | Lisa        | Ozer        |            80 |
+|         169 | Harrison    | Bloom       |            80 |
+|         170 | Tayler      | Fox         |            80 |
+|         171 | William     | Smith       |            80 |
+|         172 | Elizabeth   | Bates       |            80 |
+|         173 | Sundita     | Kumar       |            80 |
+|         174 | Ellen       | Abel        |            80 |
+|         175 | Alyssa      | Hutton      |            80 |
+|         176 | Jonathon    | Taylor      |            80 |
+|         177 | Jack        | Livingston  |            80 |
+|         178 | Kimberely   | Grant       |             0 |
+|         179 | Charles     | Johnson     |            80 |
+|         180 | Winston     | Taylor      |            50 |
+|         181 | Jean        | Fleaur      |            50 |
+|         182 | Martha      | Sullivan    |            50 |
+|         183 | Girard      | Geoni       |            50 |
+|         184 | Nandita     | Sarchand    |            50 |
+|         185 | Alexis      | Bull        |            50 |
+|         186 | Julia       | Dellinger   |            50 |
+|         187 | Anthony     | Cabrio      |            50 |
+|         188 | Kelly       | Chung       |            50 |
+|         189 | Jennifer    | Dilly       |            50 |
+|         190 | Timothy     | Gates       |            50 |
+|         191 | Randall     | Perkins     |            50 |
+|         192 | Sarah       | Bell        |            50 |
+|         193 | Britney     | Everett     |            50 |
+|         194 | Samuel      | McCain      |            50 |
+|         195 | Vance       | Jones       |            50 |
+|         196 | Alana       | Walsh       |            50 |
+|         197 | Kevin       | Feeney      |            50 |
+|         198 | Donald      | OConnell    |            50 |
+|         199 | Douglas     | Grant       |            50 |
+|         200 | Jennifer    | Whalen      |            10 |
+|         202 | Pat         | Fay         |            20 |
+|         203 | Susan       | Mavris      |            40 |
+|         204 | Hermann     | Baer        |            70 |
+|         206 | William     | Gietz       |           110 |
++-------------+-------------+-------------+---------------+
+89 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,department_id from employee
+    -> where employee_id NOT IN (select distinct manager_id from employees) and department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
+ERROR 1146 (42S02): Table 'csd2204w18.employee' doesn't exist
+MariaDB [csd2204w18]> select employee_id,first_name,last_name,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++-------------+-------------+-------------+---------------+
+| employee_id | first_name  | last_name   | department_id |
++-------------+-------------+-------------+---------------+
+|         104 | Bruce       | Ernst       |            60 |
+|         105 | David       | Austin      |            60 |
+|         106 | Valli       | Pataballa   |            60 |
+|         107 | Diana       | Lorentz     |            60 |
+|         125 | Julia       | Nayer       |            50 |
+|         126 | Irene       | Mikkilineni |            50 |
+|         127 | James       | Landry      |            50 |
+|         128 | Steven      | Markle      |            50 |
+|         129 | Laura       | Bissot      |            50 |
+|         130 | Mozhe       | Atkinson    |            50 |
+|         131 | James       | Marlow      |            50 |
+|         132 | TJ          | Olson       |            50 |
+|         133 | Jason       | Mallin      |            50 |
+|         134 | Michael     | Rogers      |            50 |
+|         135 | Ki          | Gee         |            50 |
+|         136 | Hazel       | Philtanker  |            50 |
+|         137 | Renske      | Ladwig      |            50 |
+|         138 | Stephen     | Stiles      |            50 |
+|         139 | John        | Seo         |            50 |
+|         140 | Joshua      | Patel       |            50 |
+|         141 | Trenna      | Rajs        |            50 |
+|         142 | Curtis      | Davies      |            50 |
+|         143 | Randall     | Matos       |            50 |
+|         144 | Peter       | Vargas      |            50 |
+|         180 | Winston     | Taylor      |            50 |
+|         181 | Jean        | Fleaur      |            50 |
+|         182 | Martha      | Sullivan    |            50 |
+|         183 | Girard      | Geoni       |            50 |
+|         184 | Nandita     | Sarchand    |            50 |
+|         185 | Alexis      | Bull        |            50 |
+|         186 | Julia       | Dellinger   |            50 |
+|         187 | Anthony     | Cabrio      |            50 |
+|         188 | Kelly       | Chung       |            50 |
+|         189 | Jennifer    | Dilly       |            50 |
+|         190 | Timothy     | Gates       |            50 |
+|         191 | Randall     | Perkins     |            50 |
+|         192 | Sarah       | Bell        |            50 |
+|         193 | Britney     | Everett     |            50 |
+|         194 | Samuel      | McCain      |            50 |
+|         195 | Vance       | Jones       |            50 |
+|         196 | Alana       | Walsh       |            50 |
+|         197 | Kevin       | Feeney      |            50 |
+|         198 | Donald      | OConnell    |            50 |
+|         199 | Douglas     | Grant       |            50 |
+|         200 | Jennifer    | Whalen      |            10 |
+|         115 | Alexander   | Khoo        |            30 |
+|         116 | Shelli      | Baida       |            30 |
+|         117 | Sigal       | Tobias      |            30 |
+|         118 | Guy         | Himuro      |            30 |
+|         119 | Karen       | Colmenares  |            30 |
+|         109 | Daniel      | Faviet      |           100 |
+|         110 | John        | Chen        |           100 |
+|         111 | Ismael      | Sciarra     |           100 |
+|         112 | Jose Manuel | Urman       |           100 |
+|         113 | Luis        | Popp        |           100 |
+|         206 | William     | Gietz       |           110 |
++-------------+-------------+-------------+---------------+
+56 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id,salary from departments where location_id IN (select location_id from locations
+    ->  where country_id ='US');
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+MariaDB [csd2204w18]> select department_id,salary from departments,employees where location_id IN (select location_id from locations where country_id ='US');
+ERROR 1052 (23000): Column 'department_id' in field list is ambiguous
+MariaDB [csd2204w18]> select D.department_id,salary from departments D,employees E where location_id IN (select location_id from locations where country_id ='US');
++---------------+----------+
+| department_id | salary   |
++---------------+----------+
+|            60 | 24000.00 |
+|            50 | 24000.00 |
+|            10 | 24000.00 |
+|            30 | 24000.00 |
+|            90 | 24000.00 |
+|           100 | 24000.00 |
+|           110 | 24000.00 |
+|           120 | 24000.00 |
+|           130 | 24000.00 |
+|           140 | 24000.00 |
+|           150 | 24000.00 |
+|           160 | 24000.00 |
+|           170 | 24000.00 |
+|           180 | 24000.00 |
+|           190 | 24000.00 |
+|           200 | 24000.00 |
+|           210 | 24000.00 |
+|           220 | 24000.00 |
+|           230 | 24000.00 |
+|           240 | 24000.00 |
+|           250 | 24000.00 |
+|           260 | 24000.00 |
+|           270 | 24000.00 |
+|            60 | 17000.00 |
+|            50 | 17000.00 |
+|            10 | 17000.00 |
+|            30 | 17000.00 |
+|            90 | 17000.00 |
+|           100 | 17000.00 |
+|           110 | 17000.00 |
+|           120 | 17000.00 |
+|           130 | 17000.00 |
+|           140 | 17000.00 |
+|           150 | 17000.00 |
+|           160 | 17000.00 |
+|           170 | 17000.00 |
+|           180 | 17000.00 |
+|           190 | 17000.00 |
+|           200 | 17000.00 |
+|           210 | 17000.00 |
+|           220 | 17000.00 |
+|           230 | 17000.00 |
+|           240 | 17000.00 |
+|           250 | 17000.00 |
+|           260 | 17000.00 |
+|           270 | 17000.00 |
+|            60 | 17000.00 |
+|            50 | 17000.00 |
+|            10 | 17000.00 |
+|            30 | 17000.00 |
+|            90 | 17000.00 |
+|           100 | 17000.00 |
+|           110 | 17000.00 |
+|           120 | 17000.00 |
+|           130 | 17000.00 |
+|           140 | 17000.00 |
+|           150 | 17000.00 |
+|           160 | 17000.00 |
+|           170 | 17000.00 |
+|           180 | 17000.00 |
+|           190 | 17000.00 |
+|           200 | 17000.00 |
+|           210 | 17000.00 |
+|           220 | 17000.00 |
+|           230 | 17000.00 |
+|           240 | 17000.00 |
+|           250 | 17000.00 |
+|           260 | 17000.00 |
+|           270 | 17000.00 |
+|            60 |  9000.00 |
+|            50 |  9000.00 |
+|            10 |  9000.00 |
+|            30 |  9000.00 |
+|            90 |  9000.00 |
+|           100 |  9000.00 |
+|           110 |  9000.00 |
+|           120 |  9000.00 |
+|           130 |  9000.00 |
+|           140 |  9000.00 |
+|           150 |  9000.00 |
+|           160 |  9000.00 |
+|           170 |  9000.00 |
+|           180 |  9000.00 |
+|           190 |  9000.00 |
+|           200 |  9000.00 |
+|           210 |  9000.00 |
+|           220 |  9000.00 |
+|           230 |  9000.00 |
+|           240 |  9000.00 |
+|           250 |  9000.00 |
+|           260 |  9000.00 |
+|           270 |  9000.00 |
+|            60 |  6000.00 |
+|            50 |  6000.00 |
+|            10 |  6000.00 |
+|            30 |  6000.00 |
+|            90 |  6000.00 |
+|           100 |  6000.00 |
+|           110 |  6000.00 |
+|           120 |  6000.00 |
+|           130 |  6000.00 |
+|           140 |  6000.00 |
+|           150 |  6000.00 |
+|           160 |  6000.00 |
+|           170 |  6000.00 |
+|           180 |  6000.00 |
+|           190 |  6000.00 |
+|           200 |  6000.00 |
+|           210 |  6000.00 |
+|           220 |  6000.00 |
+|           230 |  6000.00 |
+|           240 |  6000.00 |
+|           250 |  6000.00 |
+|           260 |  6000.00 |
+|           270 |  6000.00 |
+|            60 |  4800.00 |
+|            50 |  4800.00 |
+|            10 |  4800.00 |
+|            30 |  4800.00 |
+|            90 |  4800.00 |
+|           100 |  4800.00 |
+|           110 |  4800.00 |
+|           120 |  4800.00 |
+|           130 |  4800.00 |
+|           140 |  4800.00 |
+|           150 |  4800.00 |
+|           160 |  4800.00 |
+|           170 |  4800.00 |
+|           180 |  4800.00 |
+|           190 |  4800.00 |
+|           200 |  4800.00 |
+|           210 |  4800.00 |
+|           220 |  4800.00 |
+|           230 |  4800.00 |
+|           240 |  4800.00 |
+|           250 |  4800.00 |
+|           260 |  4800.00 |
+|           270 |  4800.00 |
+|            60 |  4800.00 |
+|            50 |  4800.00 |
+|            10 |  4800.00 |
+|            30 |  4800.00 |
+|            90 |  4800.00 |
+|           100 |  4800.00 |
+|           110 |  4800.00 |
+|           120 |  4800.00 |
+|           130 |  4800.00 |
+|           140 |  4800.00 |
+|           150 |  4800.00 |
+|           160 |  4800.00 |
+|           170 |  4800.00 |
+|           180 |  4800.00 |
+|           190 |  4800.00 |
+|           200 |  4800.00 |
+|           210 |  4800.00 |
+|           220 |  4800.00 |
+|           230 |  4800.00 |
+|           240 |  4800.00 |
+|           250 |  4800.00 |
+|           260 |  4800.00 |
+|           270 |  4800.00 |
+|            60 |  4200.00 |
+|            50 |  4200.00 |
+|            10 |  4200.00 |
+|            30 |  4200.00 |
+|            90 |  4200.00 |
+|           100 |  4200.00 |
+|           110 |  4200.00 |
+|           120 |  4200.00 |
+|           130 |  4200.00 |
+|           140 |  4200.00 |
+|           150 |  4200.00 |
+|           160 |  4200.00 |
+|           170 |  4200.00 |
+|           180 |  4200.00 |
+|           190 |  4200.00 |
+|           200 |  4200.00 |
+|           210 |  4200.00 |
+|           220 |  4200.00 |
+|           230 |  4200.00 |
+|           240 |  4200.00 |
+|           250 |  4200.00 |
+|           260 |  4200.00 |
+|           270 |  4200.00 |
+|            60 | 12000.00 |
+|            50 | 12000.00 |
+|            10 | 12000.00 |
+|            30 | 12000.00 |
+|            90 | 12000.00 |
+|           100 | 12000.00 |
+|           110 | 12000.00 |
+|           120 | 12000.00 |
+|           130 | 12000.00 |
+|           140 | 12000.00 |
+|           150 | 12000.00 |
+|           160 | 12000.00 |
+|           170 | 12000.00 |
+|           180 | 12000.00 |
+|           190 | 12000.00 |
+|           200 | 12000.00 |
+|           210 | 12000.00 |
+|           220 | 12000.00 |
+|           230 | 12000.00 |
+|           240 | 12000.00 |
+|           250 | 12000.00 |
+|           260 | 12000.00 |
+|           270 | 12000.00 |
+|            60 |  9000.00 |
+|            50 |  9000.00 |
+|            10 |  9000.00 |
+|            30 |  9000.00 |
+|            90 |  9000.00 |
+|           100 |  9000.00 |
+|           110 |  9000.00 |
+|           120 |  9000.00 |
+|           130 |  9000.00 |
+|           140 |  9000.00 |
+|           150 |  9000.00 |
+|           160 |  9000.00 |
+|           170 |  9000.00 |
+|           180 |  9000.00 |
+|           190 |  9000.00 |
+|           200 |  9000.00 |
+|           210 |  9000.00 |
+|           220 |  9000.00 |
+|           230 |  9000.00 |
+|           240 |  9000.00 |
+|           250 |  9000.00 |
+|           260 |  9000.00 |
+|           270 |  9000.00 |
+|            60 |  8200.00 |
+|            50 |  8200.00 |
+|            10 |  8200.00 |
+|            30 |  8200.00 |
+|            90 |  8200.00 |
+|           100 |  8200.00 |
+|           110 |  8200.00 |
+|           120 |  8200.00 |
+|           130 |  8200.00 |
+|           140 |  8200.00 |
+|           150 |  8200.00 |
+|           160 |  8200.00 |
+|           170 |  8200.00 |
+|           180 |  8200.00 |
+|           190 |  8200.00 |
+|           200 |  8200.00 |
+|           210 |  8200.00 |
+|           220 |  8200.00 |
+|           230 |  8200.00 |
+|           240 |  8200.00 |
+|           250 |  8200.00 |
+|           260 |  8200.00 |
+|           270 |  8200.00 |
+|            60 |  7700.00 |
+|            50 |  7700.00 |
+|            10 |  7700.00 |
+|            30 |  7700.00 |
+|            90 |  7700.00 |
+|           100 |  7700.00 |
+|           110 |  7700.00 |
+|           120 |  7700.00 |
+|           130 |  7700.00 |
+|           140 |  7700.00 |
+|           150 |  7700.00 |
+|           160 |  7700.00 |
+|           170 |  7700.00 |
+|           180 |  7700.00 |
+|           190 |  7700.00 |
+|           200 |  7700.00 |
+|           210 |  7700.00 |
+|           220 |  7700.00 |
+|           230 |  7700.00 |
+|           240 |  7700.00 |
+|           250 |  7700.00 |
+|           260 |  7700.00 |
+|           270 |  7700.00 |
+|            60 |  7800.00 |
+|            50 |  7800.00 |
+|            10 |  7800.00 |
+|            30 |  7800.00 |
+|            90 |  7800.00 |
+|           100 |  7800.00 |
+|           110 |  7800.00 |
+|           120 |  7800.00 |
+|           130 |  7800.00 |
+|           140 |  7800.00 |
+|           150 |  7800.00 |
+|           160 |  7800.00 |
+|           170 |  7800.00 |
+|           180 |  7800.00 |
+|           190 |  7800.00 |
+|           200 |  7800.00 |
+|           210 |  7800.00 |
+|           220 |  7800.00 |
+|           230 |  7800.00 |
+|           240 |  7800.00 |
+|           250 |  7800.00 |
+|           260 |  7800.00 |
+|           270 |  7800.00 |
+|            60 |  6900.00 |
+|            50 |  6900.00 |
+|            10 |  6900.00 |
+|            30 |  6900.00 |
+|            90 |  6900.00 |
+|           100 |  6900.00 |
+|           110 |  6900.00 |
+|           120 |  6900.00 |
+|           130 |  6900.00 |
+|           140 |  6900.00 |
+|           150 |  6900.00 |
+|           160 |  6900.00 |
+|           170 |  6900.00 |
+|           180 |  6900.00 |
+|           190 |  6900.00 |
+|           200 |  6900.00 |
+|           210 |  6900.00 |
+|           220 |  6900.00 |
+|           230 |  6900.00 |
+|           240 |  6900.00 |
+|           250 |  6900.00 |
+|           260 |  6900.00 |
+|           270 |  6900.00 |
+|            60 | 11000.00 |
+|            50 | 11000.00 |
+|            10 | 11000.00 |
+|            30 | 11000.00 |
+|            90 | 11000.00 |
+|           100 | 11000.00 |
+|           110 | 11000.00 |
+|           120 | 11000.00 |
+|           130 | 11000.00 |
+|           140 | 11000.00 |
+|           150 | 11000.00 |
+|           160 | 11000.00 |
+|           170 | 11000.00 |
+|           180 | 11000.00 |
+|           190 | 11000.00 |
+|           200 | 11000.00 |
+|           210 | 11000.00 |
+|           220 | 11000.00 |
+|           230 | 11000.00 |
+|           240 | 11000.00 |
+|           250 | 11000.00 |
+|           260 | 11000.00 |
+|           270 | 11000.00 |
+|            60 |  3100.00 |
+|            50 |  3100.00 |
+|            10 |  3100.00 |
+|            30 |  3100.00 |
+|            90 |  3100.00 |
+|           100 |  3100.00 |
+|           110 |  3100.00 |
+|           120 |  3100.00 |
+|           130 |  3100.00 |
+|           140 |  3100.00 |
+|           150 |  3100.00 |
+|           160 |  3100.00 |
+|           170 |  3100.00 |
+|           180 |  3100.00 |
+|           190 |  3100.00 |
+|           200 |  3100.00 |
+|           210 |  3100.00 |
+|           220 |  3100.00 |
+|           230 |  3100.00 |
+|           240 |  3100.00 |
+|           250 |  3100.00 |
+|           260 |  3100.00 |
+|           270 |  3100.00 |
+|            60 |  2900.00 |
+|            50 |  2900.00 |
+|            10 |  2900.00 |
+|            30 |  2900.00 |
+|            90 |  2900.00 |
+|           100 |  2900.00 |
+|           110 |  2900.00 |
+|           120 |  2900.00 |
+|           130 |  2900.00 |
+|           140 |  2900.00 |
+|           150 |  2900.00 |
+|           160 |  2900.00 |
+|           170 |  2900.00 |
+|           180 |  2900.00 |
+|           190 |  2900.00 |
+|           200 |  2900.00 |
+|           210 |  2900.00 |
+|           220 |  2900.00 |
+|           230 |  2900.00 |
+|           240 |  2900.00 |
+|           250 |  2900.00 |
+|           260 |  2900.00 |
+|           270 |  2900.00 |
+|            60 |  2800.00 |
+|            50 |  2800.00 |
+|            10 |  2800.00 |
+|            30 |  2800.00 |
+|            90 |  2800.00 |
+|           100 |  2800.00 |
+|           110 |  2800.00 |
+|           120 |  2800.00 |
+|           130 |  2800.00 |
+|           140 |  2800.00 |
+|           150 |  2800.00 |
+|           160 |  2800.00 |
+|           170 |  2800.00 |
+|           180 |  2800.00 |
+|           190 |  2800.00 |
+|           200 |  2800.00 |
+|           210 |  2800.00 |
+|           220 |  2800.00 |
+|           230 |  2800.00 |
+|           240 |  2800.00 |
+|           250 |  2800.00 |
+|           260 |  2800.00 |
+|           270 |  2800.00 |
+|            60 |  2600.00 |
+|            50 |  2600.00 |
+|            10 |  2600.00 |
+|            30 |  2600.00 |
+|            90 |  2600.00 |
+|           100 |  2600.00 |
+|           110 |  2600.00 |
+|           120 |  2600.00 |
+|           130 |  2600.00 |
+|           140 |  2600.00 |
+|           150 |  2600.00 |
+|           160 |  2600.00 |
+|           170 |  2600.00 |
+|           180 |  2600.00 |
+|           190 |  2600.00 |
+|           200 |  2600.00 |
+|           210 |  2600.00 |
+|           220 |  2600.00 |
+|           230 |  2600.00 |
+|           240 |  2600.00 |
+|           250 |  2600.00 |
+|           260 |  2600.00 |
+|           270 |  2600.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 |  8000.00 |
+|            50 |  8000.00 |
+|            10 |  8000.00 |
+|            30 |  8000.00 |
+|            90 |  8000.00 |
+|           100 |  8000.00 |
+|           110 |  8000.00 |
+|           120 |  8000.00 |
+|           130 |  8000.00 |
+|           140 |  8000.00 |
+|           150 |  8000.00 |
+|           160 |  8000.00 |
+|           170 |  8000.00 |
+|           180 |  8000.00 |
+|           190 |  8000.00 |
+|           200 |  8000.00 |
+|           210 |  8000.00 |
+|           220 |  8000.00 |
+|           230 |  8000.00 |
+|           240 |  8000.00 |
+|           250 |  8000.00 |
+|           260 |  8000.00 |
+|           270 |  8000.00 |
+|            60 |  8200.00 |
+|            50 |  8200.00 |
+|            10 |  8200.00 |
+|            30 |  8200.00 |
+|            90 |  8200.00 |
+|           100 |  8200.00 |
+|           110 |  8200.00 |
+|           120 |  8200.00 |
+|           130 |  8200.00 |
+|           140 |  8200.00 |
+|           150 |  8200.00 |
+|           160 |  8200.00 |
+|           170 |  8200.00 |
+|           180 |  8200.00 |
+|           190 |  8200.00 |
+|           200 |  8200.00 |
+|           210 |  8200.00 |
+|           220 |  8200.00 |
+|           230 |  8200.00 |
+|           240 |  8200.00 |
+|           250 |  8200.00 |
+|           260 |  8200.00 |
+|           270 |  8200.00 |
+|            60 |  7900.00 |
+|            50 |  7900.00 |
+|            10 |  7900.00 |
+|            30 |  7900.00 |
+|            90 |  7900.00 |
+|           100 |  7900.00 |
+|           110 |  7900.00 |
+|           120 |  7900.00 |
+|           130 |  7900.00 |
+|           140 |  7900.00 |
+|           150 |  7900.00 |
+|           160 |  7900.00 |
+|           170 |  7900.00 |
+|           180 |  7900.00 |
+|           190 |  7900.00 |
+|           200 |  7900.00 |
+|           210 |  7900.00 |
+|           220 |  7900.00 |
+|           230 |  7900.00 |
+|           240 |  7900.00 |
+|           250 |  7900.00 |
+|           260 |  7900.00 |
+|           270 |  7900.00 |
+|            60 |  6500.00 |
+|            50 |  6500.00 |
+|            10 |  6500.00 |
+|            30 |  6500.00 |
+|            90 |  6500.00 |
+|           100 |  6500.00 |
+|           110 |  6500.00 |
+|           120 |  6500.00 |
+|           130 |  6500.00 |
+|           140 |  6500.00 |
+|           150 |  6500.00 |
+|           160 |  6500.00 |
+|           170 |  6500.00 |
+|           180 |  6500.00 |
+|           190 |  6500.00 |
+|           200 |  6500.00 |
+|           210 |  6500.00 |
+|           220 |  6500.00 |
+|           230 |  6500.00 |
+|           240 |  6500.00 |
+|           250 |  6500.00 |
+|           260 |  6500.00 |
+|           270 |  6500.00 |
+|            60 |  5800.00 |
+|            50 |  5800.00 |
+|            10 |  5800.00 |
+|            30 |  5800.00 |
+|            90 |  5800.00 |
+|           100 |  5800.00 |
+|           110 |  5800.00 |
+|           120 |  5800.00 |
+|           130 |  5800.00 |
+|           140 |  5800.00 |
+|           150 |  5800.00 |
+|           160 |  5800.00 |
+|           170 |  5800.00 |
+|           180 |  5800.00 |
+|           190 |  5800.00 |
+|           200 |  5800.00 |
+|           210 |  5800.00 |
+|           220 |  5800.00 |
+|           230 |  5800.00 |
+|           240 |  5800.00 |
+|           250 |  5800.00 |
+|           260 |  5800.00 |
+|           270 |  5800.00 |
+|            60 |  3200.00 |
+|            50 |  3200.00 |
+|            10 |  3200.00 |
+|            30 |  3200.00 |
+|            90 |  3200.00 |
+|           100 |  3200.00 |
+|           110 |  3200.00 |
+|           120 |  3200.00 |
+|           130 |  3200.00 |
+|           140 |  3200.00 |
+|           150 |  3200.00 |
+|           160 |  3200.00 |
+|           170 |  3200.00 |
+|           180 |  3200.00 |
+|           190 |  3200.00 |
+|           200 |  3200.00 |
+|           210 |  3200.00 |
+|           220 |  3200.00 |
+|           230 |  3200.00 |
+|           240 |  3200.00 |
+|           250 |  3200.00 |
+|           260 |  3200.00 |
+|           270 |  3200.00 |
+|            60 |  2700.00 |
+|            50 |  2700.00 |
+|            10 |  2700.00 |
+|            30 |  2700.00 |
+|            90 |  2700.00 |
+|           100 |  2700.00 |
+|           110 |  2700.00 |
+|           120 |  2700.00 |
+|           130 |  2700.00 |
+|           140 |  2700.00 |
+|           150 |  2700.00 |
+|           160 |  2700.00 |
+|           170 |  2700.00 |
+|           180 |  2700.00 |
+|           190 |  2700.00 |
+|           200 |  2700.00 |
+|           210 |  2700.00 |
+|           220 |  2700.00 |
+|           230 |  2700.00 |
+|           240 |  2700.00 |
+|           250 |  2700.00 |
+|           260 |  2700.00 |
+|           270 |  2700.00 |
+|            60 |  2400.00 |
+|            50 |  2400.00 |
+|            10 |  2400.00 |
+|            30 |  2400.00 |
+|            90 |  2400.00 |
+|           100 |  2400.00 |
+|           110 |  2400.00 |
+|           120 |  2400.00 |
+|           130 |  2400.00 |
+|           140 |  2400.00 |
+|           150 |  2400.00 |
+|           160 |  2400.00 |
+|           170 |  2400.00 |
+|           180 |  2400.00 |
+|           190 |  2400.00 |
+|           200 |  2400.00 |
+|           210 |  2400.00 |
+|           220 |  2400.00 |
+|           230 |  2400.00 |
+|           240 |  2400.00 |
+|           250 |  2400.00 |
+|           260 |  2400.00 |
+|           270 |  2400.00 |
+|            60 |  2200.00 |
+|            50 |  2200.00 |
+|            10 |  2200.00 |
+|            30 |  2200.00 |
+|            90 |  2200.00 |
+|           100 |  2200.00 |
+|           110 |  2200.00 |
+|           120 |  2200.00 |
+|           130 |  2200.00 |
+|           140 |  2200.00 |
+|           150 |  2200.00 |
+|           160 |  2200.00 |
+|           170 |  2200.00 |
+|           180 |  2200.00 |
+|           190 |  2200.00 |
+|           200 |  2200.00 |
+|           210 |  2200.00 |
+|           220 |  2200.00 |
+|           230 |  2200.00 |
+|           240 |  2200.00 |
+|           250 |  2200.00 |
+|           260 |  2200.00 |
+|           270 |  2200.00 |
+|            60 |  3300.00 |
+|            50 |  3300.00 |
+|            10 |  3300.00 |
+|            30 |  3300.00 |
+|            90 |  3300.00 |
+|           100 |  3300.00 |
+|           110 |  3300.00 |
+|           120 |  3300.00 |
+|           130 |  3300.00 |
+|           140 |  3300.00 |
+|           150 |  3300.00 |
+|           160 |  3300.00 |
+|           170 |  3300.00 |
+|           180 |  3300.00 |
+|           190 |  3300.00 |
+|           200 |  3300.00 |
+|           210 |  3300.00 |
+|           220 |  3300.00 |
+|           230 |  3300.00 |
+|           240 |  3300.00 |
+|           250 |  3300.00 |
+|           260 |  3300.00 |
+|           270 |  3300.00 |
+|            60 |  2800.00 |
+|            50 |  2800.00 |
+|            10 |  2800.00 |
+|            30 |  2800.00 |
+|            90 |  2800.00 |
+|           100 |  2800.00 |
+|           110 |  2800.00 |
+|           120 |  2800.00 |
+|           130 |  2800.00 |
+|           140 |  2800.00 |
+|           150 |  2800.00 |
+|           160 |  2800.00 |
+|           170 |  2800.00 |
+|           180 |  2800.00 |
+|           190 |  2800.00 |
+|           200 |  2800.00 |
+|           210 |  2800.00 |
+|           220 |  2800.00 |
+|           230 |  2800.00 |
+|           240 |  2800.00 |
+|           250 |  2800.00 |
+|           260 |  2800.00 |
+|           270 |  2800.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 |  2100.00 |
+|            50 |  2100.00 |
+|            10 |  2100.00 |
+|            30 |  2100.00 |
+|            90 |  2100.00 |
+|           100 |  2100.00 |
+|           110 |  2100.00 |
+|           120 |  2100.00 |
+|           130 |  2100.00 |
+|           140 |  2100.00 |
+|           150 |  2100.00 |
+|           160 |  2100.00 |
+|           170 |  2100.00 |
+|           180 |  2100.00 |
+|           190 |  2100.00 |
+|           200 |  2100.00 |
+|           210 |  2100.00 |
+|           220 |  2100.00 |
+|           230 |  2100.00 |
+|           240 |  2100.00 |
+|           250 |  2100.00 |
+|           260 |  2100.00 |
+|           270 |  2100.00 |
+|            60 |  3300.00 |
+|            50 |  3300.00 |
+|            10 |  3300.00 |
+|            30 |  3300.00 |
+|            90 |  3300.00 |
+|           100 |  3300.00 |
+|           110 |  3300.00 |
+|           120 |  3300.00 |
+|           130 |  3300.00 |
+|           140 |  3300.00 |
+|           150 |  3300.00 |
+|           160 |  3300.00 |
+|           170 |  3300.00 |
+|           180 |  3300.00 |
+|           190 |  3300.00 |
+|           200 |  3300.00 |
+|           210 |  3300.00 |
+|           220 |  3300.00 |
+|           230 |  3300.00 |
+|           240 |  3300.00 |
+|           250 |  3300.00 |
+|           260 |  3300.00 |
+|           270 |  3300.00 |
+|            60 |  2900.00 |
+|            50 |  2900.00 |
+|            10 |  2900.00 |
+|            30 |  2900.00 |
+|            90 |  2900.00 |
+|           100 |  2900.00 |
+|           110 |  2900.00 |
+|           120 |  2900.00 |
+|           130 |  2900.00 |
+|           140 |  2900.00 |
+|           150 |  2900.00 |
+|           160 |  2900.00 |
+|           170 |  2900.00 |
+|           180 |  2900.00 |
+|           190 |  2900.00 |
+|           200 |  2900.00 |
+|           210 |  2900.00 |
+|           220 |  2900.00 |
+|           230 |  2900.00 |
+|           240 |  2900.00 |
+|           250 |  2900.00 |
+|           260 |  2900.00 |
+|           270 |  2900.00 |
+|            60 |  2400.00 |
+|            50 |  2400.00 |
+|            10 |  2400.00 |
+|            30 |  2400.00 |
+|            90 |  2400.00 |
+|           100 |  2400.00 |
+|           110 |  2400.00 |
+|           120 |  2400.00 |
+|           130 |  2400.00 |
+|           140 |  2400.00 |
+|           150 |  2400.00 |
+|           160 |  2400.00 |
+|           170 |  2400.00 |
+|           180 |  2400.00 |
+|           190 |  2400.00 |
+|           200 |  2400.00 |
+|           210 |  2400.00 |
+|           220 |  2400.00 |
+|           230 |  2400.00 |
+|           240 |  2400.00 |
+|           250 |  2400.00 |
+|           260 |  2400.00 |
+|           270 |  2400.00 |
+|            60 |  2200.00 |
+|            50 |  2200.00 |
+|            10 |  2200.00 |
+|            30 |  2200.00 |
+|            90 |  2200.00 |
+|           100 |  2200.00 |
+|           110 |  2200.00 |
+|           120 |  2200.00 |
+|           130 |  2200.00 |
+|           140 |  2200.00 |
+|           150 |  2200.00 |
+|           160 |  2200.00 |
+|           170 |  2200.00 |
+|           180 |  2200.00 |
+|           190 |  2200.00 |
+|           200 |  2200.00 |
+|           210 |  2200.00 |
+|           220 |  2200.00 |
+|           230 |  2200.00 |
+|           240 |  2200.00 |
+|           250 |  2200.00 |
+|           260 |  2200.00 |
+|           270 |  2200.00 |
+|            60 |  3600.00 |
+|            50 |  3600.00 |
+|            10 |  3600.00 |
+|            30 |  3600.00 |
+|            90 |  3600.00 |
+|           100 |  3600.00 |
+|           110 |  3600.00 |
+|           120 |  3600.00 |
+|           130 |  3600.00 |
+|           140 |  3600.00 |
+|           150 |  3600.00 |
+|           160 |  3600.00 |
+|           170 |  3600.00 |
+|           180 |  3600.00 |
+|           190 |  3600.00 |
+|           200 |  3600.00 |
+|           210 |  3600.00 |
+|           220 |  3600.00 |
+|           230 |  3600.00 |
+|           240 |  3600.00 |
+|           250 |  3600.00 |
+|           260 |  3600.00 |
+|           270 |  3600.00 |
+|            60 |  3200.00 |
+|            50 |  3200.00 |
+|            10 |  3200.00 |
+|            30 |  3200.00 |
+|            90 |  3200.00 |
+|           100 |  3200.00 |
+|           110 |  3200.00 |
+|           120 |  3200.00 |
+|           130 |  3200.00 |
+|           140 |  3200.00 |
+|           150 |  3200.00 |
+|           160 |  3200.00 |
+|           170 |  3200.00 |
+|           180 |  3200.00 |
+|           190 |  3200.00 |
+|           200 |  3200.00 |
+|           210 |  3200.00 |
+|           220 |  3200.00 |
+|           230 |  3200.00 |
+|           240 |  3200.00 |
+|           250 |  3200.00 |
+|           260 |  3200.00 |
+|           270 |  3200.00 |
+|            60 |  2700.00 |
+|            50 |  2700.00 |
+|            10 |  2700.00 |
+|            30 |  2700.00 |
+|            90 |  2700.00 |
+|           100 |  2700.00 |
+|           110 |  2700.00 |
+|           120 |  2700.00 |
+|           130 |  2700.00 |
+|           140 |  2700.00 |
+|           150 |  2700.00 |
+|           160 |  2700.00 |
+|           170 |  2700.00 |
+|           180 |  2700.00 |
+|           190 |  2700.00 |
+|           200 |  2700.00 |
+|           210 |  2700.00 |
+|           220 |  2700.00 |
+|           230 |  2700.00 |
+|           240 |  2700.00 |
+|           250 |  2700.00 |
+|           260 |  2700.00 |
+|           270 |  2700.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 |  3500.00 |
+|            50 |  3500.00 |
+|            10 |  3500.00 |
+|            30 |  3500.00 |
+|            90 |  3500.00 |
+|           100 |  3500.00 |
+|           110 |  3500.00 |
+|           120 |  3500.00 |
+|           130 |  3500.00 |
+|           140 |  3500.00 |
+|           150 |  3500.00 |
+|           160 |  3500.00 |
+|           170 |  3500.00 |
+|           180 |  3500.00 |
+|           190 |  3500.00 |
+|           200 |  3500.00 |
+|           210 |  3500.00 |
+|           220 |  3500.00 |
+|           230 |  3500.00 |
+|           240 |  3500.00 |
+|           250 |  3500.00 |
+|           260 |  3500.00 |
+|           270 |  3500.00 |
+|            60 |  3100.00 |
+|            50 |  3100.00 |
+|            10 |  3100.00 |
+|            30 |  3100.00 |
+|            90 |  3100.00 |
+|           100 |  3100.00 |
+|           110 |  3100.00 |
+|           120 |  3100.00 |
+|           130 |  3100.00 |
+|           140 |  3100.00 |
+|           150 |  3100.00 |
+|           160 |  3100.00 |
+|           170 |  3100.00 |
+|           180 |  3100.00 |
+|           190 |  3100.00 |
+|           200 |  3100.00 |
+|           210 |  3100.00 |
+|           220 |  3100.00 |
+|           230 |  3100.00 |
+|           240 |  3100.00 |
+|           250 |  3100.00 |
+|           260 |  3100.00 |
+|           270 |  3100.00 |
+|            60 |  2600.00 |
+|            50 |  2600.00 |
+|            10 |  2600.00 |
+|            30 |  2600.00 |
+|            90 |  2600.00 |
+|           100 |  2600.00 |
+|           110 |  2600.00 |
+|           120 |  2600.00 |
+|           130 |  2600.00 |
+|           140 |  2600.00 |
+|           150 |  2600.00 |
+|           160 |  2600.00 |
+|           170 |  2600.00 |
+|           180 |  2600.00 |
+|           190 |  2600.00 |
+|           200 |  2600.00 |
+|           210 |  2600.00 |
+|           220 |  2600.00 |
+|           230 |  2600.00 |
+|           240 |  2600.00 |
+|           250 |  2600.00 |
+|           260 |  2600.00 |
+|           270 |  2600.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 | 14000.00 |
+|            50 | 14000.00 |
+|            10 | 14000.00 |
+|            30 | 14000.00 |
+|            90 | 14000.00 |
+|           100 | 14000.00 |
+|           110 | 14000.00 |
+|           120 | 14000.00 |
+|           130 | 14000.00 |
+|           140 | 14000.00 |
+|           150 | 14000.00 |
+|           160 | 14000.00 |
+|           170 | 14000.00 |
+|           180 | 14000.00 |
+|           190 | 14000.00 |
+|           200 | 14000.00 |
+|           210 | 14000.00 |
+|           220 | 14000.00 |
+|           230 | 14000.00 |
+|           240 | 14000.00 |
+|           250 | 14000.00 |
+|           260 | 14000.00 |
+|           270 | 14000.00 |
+|            60 | 13500.00 |
+|            50 | 13500.00 |
+|            10 | 13500.00 |
+|            30 | 13500.00 |
+|            90 | 13500.00 |
+|           100 | 13500.00 |
+|           110 | 13500.00 |
+|           120 | 13500.00 |
+|           130 | 13500.00 |
+|           140 | 13500.00 |
+|           150 | 13500.00 |
+|           160 | 13500.00 |
+|           170 | 13500.00 |
+|           180 | 13500.00 |
+|           190 | 13500.00 |
+|           200 | 13500.00 |
+|           210 | 13500.00 |
+|           220 | 13500.00 |
+|           230 | 13500.00 |
+|           240 | 13500.00 |
+|           250 | 13500.00 |
+|           260 | 13500.00 |
+|           270 | 13500.00 |
+|            60 | 12000.00 |
+|            50 | 12000.00 |
+|            10 | 12000.00 |
+|            30 | 12000.00 |
+|            90 | 12000.00 |
+|           100 | 12000.00 |
+|           110 | 12000.00 |
+|           120 | 12000.00 |
+|           130 | 12000.00 |
+|           140 | 12000.00 |
+|           150 | 12000.00 |
+|           160 | 12000.00 |
+|           170 | 12000.00 |
+|           180 | 12000.00 |
+|           190 | 12000.00 |
+|           200 | 12000.00 |
+|           210 | 12000.00 |
+|           220 | 12000.00 |
+|           230 | 12000.00 |
+|           240 | 12000.00 |
+|           250 | 12000.00 |
+|           260 | 12000.00 |
+|           270 | 12000.00 |
+|            60 | 11000.00 |
+|            50 | 11000.00 |
+|            10 | 11000.00 |
+|            30 | 11000.00 |
+|            90 | 11000.00 |
+|           100 | 11000.00 |
+|           110 | 11000.00 |
+|           120 | 11000.00 |
+|           130 | 11000.00 |
+|           140 | 11000.00 |
+|           150 | 11000.00 |
+|           160 | 11000.00 |
+|           170 | 11000.00 |
+|           180 | 11000.00 |
+|           190 | 11000.00 |
+|           200 | 11000.00 |
+|           210 | 11000.00 |
+|           220 | 11000.00 |
+|           230 | 11000.00 |
+|           240 | 11000.00 |
+|           250 | 11000.00 |
+|           260 | 11000.00 |
+|           270 | 11000.00 |
+|            60 | 10500.00 |
+|            50 | 10500.00 |
+|            10 | 10500.00 |
+|            30 | 10500.00 |
+|            90 | 10500.00 |
+|           100 | 10500.00 |
+|           110 | 10500.00 |
+|           120 | 10500.00 |
+|           130 | 10500.00 |
+|           140 | 10500.00 |
+|           150 | 10500.00 |
+|           160 | 10500.00 |
+|           170 | 10500.00 |
+|           180 | 10500.00 |
+|           190 | 10500.00 |
+|           200 | 10500.00 |
+|           210 | 10500.00 |
+|           220 | 10500.00 |
+|           230 | 10500.00 |
+|           240 | 10500.00 |
+|           250 | 10500.00 |
+|           260 | 10500.00 |
+|           270 | 10500.00 |
+|            60 | 10000.00 |
+|            50 | 10000.00 |
+|            10 | 10000.00 |
+|            30 | 10000.00 |
+|            90 | 10000.00 |
+|           100 | 10000.00 |
+|           110 | 10000.00 |
+|           120 | 10000.00 |
+|           130 | 10000.00 |
+|           140 | 10000.00 |
+|           150 | 10000.00 |
+|           160 | 10000.00 |
+|           170 | 10000.00 |
+|           180 | 10000.00 |
+|           190 | 10000.00 |
+|           200 | 10000.00 |
+|           210 | 10000.00 |
+|           220 | 10000.00 |
+|           230 | 10000.00 |
+|           240 | 10000.00 |
+|           250 | 10000.00 |
+|           260 | 10000.00 |
+|           270 | 10000.00 |
+|            60 |  9500.00 |
+|            50 |  9500.00 |
+|            10 |  9500.00 |
+|            30 |  9500.00 |
+|            90 |  9500.00 |
+|           100 |  9500.00 |
+|           110 |  9500.00 |
+|           120 |  9500.00 |
+|           130 |  9500.00 |
+|           140 |  9500.00 |
+|           150 |  9500.00 |
+|           160 |  9500.00 |
+|           170 |  9500.00 |
+|           180 |  9500.00 |
+|           190 |  9500.00 |
+|           200 |  9500.00 |
+|           210 |  9500.00 |
+|           220 |  9500.00 |
+|           230 |  9500.00 |
+|           240 |  9500.00 |
+|           250 |  9500.00 |
+|           260 |  9500.00 |
+|           270 |  9500.00 |
+|            60 |  9000.00 |
+|            50 |  9000.00 |
+|            10 |  9000.00 |
+|            30 |  9000.00 |
+|            90 |  9000.00 |
+|           100 |  9000.00 |
+|           110 |  9000.00 |
+|           120 |  9000.00 |
+|           130 |  9000.00 |
+|           140 |  9000.00 |
+|           150 |  9000.00 |
+|           160 |  9000.00 |
+|           170 |  9000.00 |
+|           180 |  9000.00 |
+|           190 |  9000.00 |
+|           200 |  9000.00 |
+|           210 |  9000.00 |
+|           220 |  9000.00 |
+|           230 |  9000.00 |
+|           240 |  9000.00 |
+|           250 |  9000.00 |
+|           260 |  9000.00 |
+|           270 |  9000.00 |
+|            60 |  8000.00 |
+|            50 |  8000.00 |
+|            10 |  8000.00 |
+|            30 |  8000.00 |
+|            90 |  8000.00 |
+|           100 |  8000.00 |
+|           110 |  8000.00 |
+|           120 |  8000.00 |
+|           130 |  8000.00 |
+|           140 |  8000.00 |
+|           150 |  8000.00 |
+|           160 |  8000.00 |
+|           170 |  8000.00 |
+|           180 |  8000.00 |
+|           190 |  8000.00 |
+|           200 |  8000.00 |
+|           210 |  8000.00 |
+|           220 |  8000.00 |
+|           230 |  8000.00 |
+|           240 |  8000.00 |
+|           250 |  8000.00 |
+|           260 |  8000.00 |
+|           270 |  8000.00 |
+|            60 |  7500.00 |
+|            50 |  7500.00 |
+|            10 |  7500.00 |
+|            30 |  7500.00 |
+|            90 |  7500.00 |
+|           100 |  7500.00 |
+|           110 |  7500.00 |
+|           120 |  7500.00 |
+|           130 |  7500.00 |
+|           140 |  7500.00 |
+|           150 |  7500.00 |
+|           160 |  7500.00 |
+|           170 |  7500.00 |
+|           180 |  7500.00 |
+|           190 |  7500.00 |
+|           200 |  7500.00 |
+|           210 |  7500.00 |
+|           220 |  7500.00 |
+|           230 |  7500.00 |
+|           240 |  7500.00 |
+|           250 |  7500.00 |
+|           260 |  7500.00 |
+|           270 |  7500.00 |
+|            60 |  7000.00 |
+|            50 |  7000.00 |
+|            10 |  7000.00 |
+|            30 |  7000.00 |
+|            90 |  7000.00 |
+|           100 |  7000.00 |
+|           110 |  7000.00 |
+|           120 |  7000.00 |
+|           130 |  7000.00 |
+|           140 |  7000.00 |
+|           150 |  7000.00 |
+|           160 |  7000.00 |
+|           170 |  7000.00 |
+|           180 |  7000.00 |
+|           190 |  7000.00 |
+|           200 |  7000.00 |
+|           210 |  7000.00 |
+|           220 |  7000.00 |
+|           230 |  7000.00 |
+|           240 |  7000.00 |
+|           250 |  7000.00 |
+|           260 |  7000.00 |
+|           270 |  7000.00 |
+|            60 | 10000.00 |
+|            50 | 10000.00 |
+|            10 | 10000.00 |
+|            30 | 10000.00 |
+|            90 | 10000.00 |
+|           100 | 10000.00 |
+|           110 | 10000.00 |
+|           120 | 10000.00 |
+|           130 | 10000.00 |
+|           140 | 10000.00 |
+|           150 | 10000.00 |
+|           160 | 10000.00 |
+|           170 | 10000.00 |
+|           180 | 10000.00 |
+|           190 | 10000.00 |
+|           200 | 10000.00 |
+|           210 | 10000.00 |
+|           220 | 10000.00 |
+|           230 | 10000.00 |
+|           240 | 10000.00 |
+|           250 | 10000.00 |
+|           260 | 10000.00 |
+|           270 | 10000.00 |
+|            60 |  9500.00 |
+|            50 |  9500.00 |
+|            10 |  9500.00 |
+|            30 |  9500.00 |
+|            90 |  9500.00 |
+|           100 |  9500.00 |
+|           110 |  9500.00 |
+|           120 |  9500.00 |
+|           130 |  9500.00 |
+|           140 |  9500.00 |
+|           150 |  9500.00 |
+|           160 |  9500.00 |
+|           170 |  9500.00 |
+|           180 |  9500.00 |
+|           190 |  9500.00 |
+|           200 |  9500.00 |
+|           210 |  9500.00 |
+|           220 |  9500.00 |
+|           230 |  9500.00 |
+|           240 |  9500.00 |
+|           250 |  9500.00 |
+|           260 |  9500.00 |
+|           270 |  9500.00 |
+|            60 |  9000.00 |
+|            50 |  9000.00 |
+|            10 |  9000.00 |
+|            30 |  9000.00 |
+|            90 |  9000.00 |
+|           100 |  9000.00 |
+|           110 |  9000.00 |
+|           120 |  9000.00 |
+|           130 |  9000.00 |
+|           140 |  9000.00 |
+|           150 |  9000.00 |
+|           160 |  9000.00 |
+|           170 |  9000.00 |
+|           180 |  9000.00 |
+|           190 |  9000.00 |
+|           200 |  9000.00 |
+|           210 |  9000.00 |
+|           220 |  9000.00 |
+|           230 |  9000.00 |
+|           240 |  9000.00 |
+|           250 |  9000.00 |
+|           260 |  9000.00 |
+|           270 |  9000.00 |
+|            60 |  8000.00 |
+|            50 |  8000.00 |
+|            10 |  8000.00 |
+|            30 |  8000.00 |
+|            90 |  8000.00 |
+|           100 |  8000.00 |
+|           110 |  8000.00 |
+|           120 |  8000.00 |
+|           130 |  8000.00 |
+|           140 |  8000.00 |
+|           150 |  8000.00 |
+|           160 |  8000.00 |
+|           170 |  8000.00 |
+|           180 |  8000.00 |
+|           190 |  8000.00 |
+|           200 |  8000.00 |
+|           210 |  8000.00 |
+|           220 |  8000.00 |
+|           230 |  8000.00 |
+|           240 |  8000.00 |
+|           250 |  8000.00 |
+|           260 |  8000.00 |
+|           270 |  8000.00 |
+|            60 |  7500.00 |
+|            50 |  7500.00 |
+|            10 |  7500.00 |
+|            30 |  7500.00 |
+|            90 |  7500.00 |
+|           100 |  7500.00 |
+|           110 |  7500.00 |
+|           120 |  7500.00 |
+|           130 |  7500.00 |
+|           140 |  7500.00 |
+|           150 |  7500.00 |
+|           160 |  7500.00 |
+|           170 |  7500.00 |
+|           180 |  7500.00 |
+|           190 |  7500.00 |
+|           200 |  7500.00 |
+|           210 |  7500.00 |
+|           220 |  7500.00 |
+|           230 |  7500.00 |
+|           240 |  7500.00 |
+|           250 |  7500.00 |
+|           260 |  7500.00 |
+|           270 |  7500.00 |
+|            60 |  7000.00 |
+|            50 |  7000.00 |
+|            10 |  7000.00 |
+|            30 |  7000.00 |
+|            90 |  7000.00 |
+|           100 |  7000.00 |
+|           110 |  7000.00 |
+|           120 |  7000.00 |
+|           130 |  7000.00 |
+|           140 |  7000.00 |
+|           150 |  7000.00 |
+|           160 |  7000.00 |
+|           170 |  7000.00 |
+|           180 |  7000.00 |
+|           190 |  7000.00 |
+|           200 |  7000.00 |
+|           210 |  7000.00 |
+|           220 |  7000.00 |
+|           230 |  7000.00 |
+|           240 |  7000.00 |
+|           250 |  7000.00 |
+|           260 |  7000.00 |
+|           270 |  7000.00 |
+|            60 | 10500.00 |
+|            50 | 10500.00 |
+|            10 | 10500.00 |
+|            30 | 10500.00 |
+|            90 | 10500.00 |
+|           100 | 10500.00 |
+|           110 | 10500.00 |
+|           120 | 10500.00 |
+|           130 | 10500.00 |
+|           140 | 10500.00 |
+|           150 | 10500.00 |
+|           160 | 10500.00 |
+|           170 | 10500.00 |
+|           180 | 10500.00 |
+|           190 | 10500.00 |
+|           200 | 10500.00 |
+|           210 | 10500.00 |
+|           220 | 10500.00 |
+|           230 | 10500.00 |
+|           240 | 10500.00 |
+|           250 | 10500.00 |
+|           260 | 10500.00 |
+|           270 | 10500.00 |
+|            60 |  9500.00 |
+|            50 |  9500.00 |
+|            10 |  9500.00 |
+|            30 |  9500.00 |
+|            90 |  9500.00 |
+|           100 |  9500.00 |
+|           110 |  9500.00 |
+|           120 |  9500.00 |
+|           130 |  9500.00 |
+|           140 |  9500.00 |
+|           150 |  9500.00 |
+|           160 |  9500.00 |
+|           170 |  9500.00 |
+|           180 |  9500.00 |
+|           190 |  9500.00 |
+|           200 |  9500.00 |
+|           210 |  9500.00 |
+|           220 |  9500.00 |
+|           230 |  9500.00 |
+|           240 |  9500.00 |
+|           250 |  9500.00 |
+|           260 |  9500.00 |
+|           270 |  9500.00 |
+|            60 |  7200.00 |
+|            50 |  7200.00 |
+|            10 |  7200.00 |
+|            30 |  7200.00 |
+|            90 |  7200.00 |
+|           100 |  7200.00 |
+|           110 |  7200.00 |
+|           120 |  7200.00 |
+|           130 |  7200.00 |
+|           140 |  7200.00 |
+|           150 |  7200.00 |
+|           160 |  7200.00 |
+|           170 |  7200.00 |
+|           180 |  7200.00 |
+|           190 |  7200.00 |
+|           200 |  7200.00 |
+|           210 |  7200.00 |
+|           220 |  7200.00 |
+|           230 |  7200.00 |
+|           240 |  7200.00 |
+|           250 |  7200.00 |
+|           260 |  7200.00 |
+|           270 |  7200.00 |
+|            60 |  6800.00 |
+|            50 |  6800.00 |
+|            10 |  6800.00 |
+|            30 |  6800.00 |
+|            90 |  6800.00 |
+|           100 |  6800.00 |
+|           110 |  6800.00 |
+|           120 |  6800.00 |
+|           130 |  6800.00 |
+|           140 |  6800.00 |
+|           150 |  6800.00 |
+|           160 |  6800.00 |
+|           170 |  6800.00 |
+|           180 |  6800.00 |
+|           190 |  6800.00 |
+|           200 |  6800.00 |
+|           210 |  6800.00 |
+|           220 |  6800.00 |
+|           230 |  6800.00 |
+|           240 |  6800.00 |
+|           250 |  6800.00 |
+|           260 |  6800.00 |
+|           270 |  6800.00 |
+|            60 |  6400.00 |
+|            50 |  6400.00 |
+|            10 |  6400.00 |
+|            30 |  6400.00 |
+|            90 |  6400.00 |
+|           100 |  6400.00 |
+|           110 |  6400.00 |
+|           120 |  6400.00 |
+|           130 |  6400.00 |
+|           140 |  6400.00 |
+|           150 |  6400.00 |
+|           160 |  6400.00 |
+|           170 |  6400.00 |
+|           180 |  6400.00 |
+|           190 |  6400.00 |
+|           200 |  6400.00 |
+|           210 |  6400.00 |
+|           220 |  6400.00 |
+|           230 |  6400.00 |
+|           240 |  6400.00 |
+|           250 |  6400.00 |
+|           260 |  6400.00 |
+|           270 |  6400.00 |
+|            60 |  6200.00 |
+|            50 |  6200.00 |
+|            10 |  6200.00 |
+|            30 |  6200.00 |
+|            90 |  6200.00 |
+|           100 |  6200.00 |
+|           110 |  6200.00 |
+|           120 |  6200.00 |
+|           130 |  6200.00 |
+|           140 |  6200.00 |
+|           150 |  6200.00 |
+|           160 |  6200.00 |
+|           170 |  6200.00 |
+|           180 |  6200.00 |
+|           190 |  6200.00 |
+|           200 |  6200.00 |
+|           210 |  6200.00 |
+|           220 |  6200.00 |
+|           230 |  6200.00 |
+|           240 |  6200.00 |
+|           250 |  6200.00 |
+|           260 |  6200.00 |
+|           270 |  6200.00 |
+|            60 | 11500.00 |
+|            50 | 11500.00 |
+|            10 | 11500.00 |
+|            30 | 11500.00 |
+|            90 | 11500.00 |
+|           100 | 11500.00 |
+|           110 | 11500.00 |
+|           120 | 11500.00 |
+|           130 | 11500.00 |
+|           140 | 11500.00 |
+|           150 | 11500.00 |
+|           160 | 11500.00 |
+|           170 | 11500.00 |
+|           180 | 11500.00 |
+|           190 | 11500.00 |
+|           200 | 11500.00 |
+|           210 | 11500.00 |
+|           220 | 11500.00 |
+|           230 | 11500.00 |
+|           240 | 11500.00 |
+|           250 | 11500.00 |
+|           260 | 11500.00 |
+|           270 | 11500.00 |
+|            60 | 10000.00 |
+|            50 | 10000.00 |
+|            10 | 10000.00 |
+|            30 | 10000.00 |
+|            90 | 10000.00 |
+|           100 | 10000.00 |
+|           110 | 10000.00 |
+|           120 | 10000.00 |
+|           130 | 10000.00 |
+|           140 | 10000.00 |
+|           150 | 10000.00 |
+|           160 | 10000.00 |
+|           170 | 10000.00 |
+|           180 | 10000.00 |
+|           190 | 10000.00 |
+|           200 | 10000.00 |
+|           210 | 10000.00 |
+|           220 | 10000.00 |
+|           230 | 10000.00 |
+|           240 | 10000.00 |
+|           250 | 10000.00 |
+|           260 | 10000.00 |
+|           270 | 10000.00 |
+|            60 |  9600.00 |
+|            50 |  9600.00 |
+|            10 |  9600.00 |
+|            30 |  9600.00 |
+|            90 |  9600.00 |
+|           100 |  9600.00 |
+|           110 |  9600.00 |
+|           120 |  9600.00 |
+|           130 |  9600.00 |
+|           140 |  9600.00 |
+|           150 |  9600.00 |
+|           160 |  9600.00 |
+|           170 |  9600.00 |
+|           180 |  9600.00 |
+|           190 |  9600.00 |
+|           200 |  9600.00 |
+|           210 |  9600.00 |
+|           220 |  9600.00 |
+|           230 |  9600.00 |
+|           240 |  9600.00 |
+|           250 |  9600.00 |
+|           260 |  9600.00 |
+|           270 |  9600.00 |
+|            60 |  7400.00 |
+|            50 |  7400.00 |
+|            10 |  7400.00 |
+|            30 |  7400.00 |
+|            90 |  7400.00 |
+|           100 |  7400.00 |
+|           110 |  7400.00 |
+|           120 |  7400.00 |
+|           130 |  7400.00 |
+|           140 |  7400.00 |
+|           150 |  7400.00 |
+|           160 |  7400.00 |
+|           170 |  7400.00 |
+|           180 |  7400.00 |
+|           190 |  7400.00 |
+|           200 |  7400.00 |
+|           210 |  7400.00 |
+|           220 |  7400.00 |
+|           230 |  7400.00 |
+|           240 |  7400.00 |
+|           250 |  7400.00 |
+|           260 |  7400.00 |
+|           270 |  7400.00 |
+|            60 |  7300.00 |
+|            50 |  7300.00 |
+|            10 |  7300.00 |
+|            30 |  7300.00 |
+|            90 |  7300.00 |
+|           100 |  7300.00 |
+|           110 |  7300.00 |
+|           120 |  7300.00 |
+|           130 |  7300.00 |
+|           140 |  7300.00 |
+|           150 |  7300.00 |
+|           160 |  7300.00 |
+|           170 |  7300.00 |
+|           180 |  7300.00 |
+|           190 |  7300.00 |
+|           200 |  7300.00 |
+|           210 |  7300.00 |
+|           220 |  7300.00 |
+|           230 |  7300.00 |
+|           240 |  7300.00 |
+|           250 |  7300.00 |
+|           260 |  7300.00 |
+|           270 |  7300.00 |
+|            60 |  6100.00 |
+|            50 |  6100.00 |
+|            10 |  6100.00 |
+|            30 |  6100.00 |
+|            90 |  6100.00 |
+|           100 |  6100.00 |
+|           110 |  6100.00 |
+|           120 |  6100.00 |
+|           130 |  6100.00 |
+|           140 |  6100.00 |
+|           150 |  6100.00 |
+|           160 |  6100.00 |
+|           170 |  6100.00 |
+|           180 |  6100.00 |
+|           190 |  6100.00 |
+|           200 |  6100.00 |
+|           210 |  6100.00 |
+|           220 |  6100.00 |
+|           230 |  6100.00 |
+|           240 |  6100.00 |
+|           250 |  6100.00 |
+|           260 |  6100.00 |
+|           270 |  6100.00 |
+|            60 | 11000.00 |
+|            50 | 11000.00 |
+|            10 | 11000.00 |
+|            30 | 11000.00 |
+|            90 | 11000.00 |
+|           100 | 11000.00 |
+|           110 | 11000.00 |
+|           120 | 11000.00 |
+|           130 | 11000.00 |
+|           140 | 11000.00 |
+|           150 | 11000.00 |
+|           160 | 11000.00 |
+|           170 | 11000.00 |
+|           180 | 11000.00 |
+|           190 | 11000.00 |
+|           200 | 11000.00 |
+|           210 | 11000.00 |
+|           220 | 11000.00 |
+|           230 | 11000.00 |
+|           240 | 11000.00 |
+|           250 | 11000.00 |
+|           260 | 11000.00 |
+|           270 | 11000.00 |
+|            60 |  8800.00 |
+|            50 |  8800.00 |
+|            10 |  8800.00 |
+|            30 |  8800.00 |
+|            90 |  8800.00 |
+|           100 |  8800.00 |
+|           110 |  8800.00 |
+|           120 |  8800.00 |
+|           130 |  8800.00 |
+|           140 |  8800.00 |
+|           150 |  8800.00 |
+|           160 |  8800.00 |
+|           170 |  8800.00 |
+|           180 |  8800.00 |
+|           190 |  8800.00 |
+|           200 |  8800.00 |
+|           210 |  8800.00 |
+|           220 |  8800.00 |
+|           230 |  8800.00 |
+|           240 |  8800.00 |
+|           250 |  8800.00 |
+|           260 |  8800.00 |
+|           270 |  8800.00 |
+|            60 |  8600.00 |
+|            50 |  8600.00 |
+|            10 |  8600.00 |
+|            30 |  8600.00 |
+|            90 |  8600.00 |
+|           100 |  8600.00 |
+|           110 |  8600.00 |
+|           120 |  8600.00 |
+|           130 |  8600.00 |
+|           140 |  8600.00 |
+|           150 |  8600.00 |
+|           160 |  8600.00 |
+|           170 |  8600.00 |
+|           180 |  8600.00 |
+|           190 |  8600.00 |
+|           200 |  8600.00 |
+|           210 |  8600.00 |
+|           220 |  8600.00 |
+|           230 |  8600.00 |
+|           240 |  8600.00 |
+|           250 |  8600.00 |
+|           260 |  8600.00 |
+|           270 |  8600.00 |
+|            60 |  8400.00 |
+|            50 |  8400.00 |
+|            10 |  8400.00 |
+|            30 |  8400.00 |
+|            90 |  8400.00 |
+|           100 |  8400.00 |
+|           110 |  8400.00 |
+|           120 |  8400.00 |
+|           130 |  8400.00 |
+|           140 |  8400.00 |
+|           150 |  8400.00 |
+|           160 |  8400.00 |
+|           170 |  8400.00 |
+|           180 |  8400.00 |
+|           190 |  8400.00 |
+|           200 |  8400.00 |
+|           210 |  8400.00 |
+|           220 |  8400.00 |
+|           230 |  8400.00 |
+|           240 |  8400.00 |
+|           250 |  8400.00 |
+|           260 |  8400.00 |
+|           270 |  8400.00 |
+|            60 |  7000.00 |
+|            50 |  7000.00 |
+|            10 |  7000.00 |
+|            30 |  7000.00 |
+|            90 |  7000.00 |
+|           100 |  7000.00 |
+|           110 |  7000.00 |
+|           120 |  7000.00 |
+|           130 |  7000.00 |
+|           140 |  7000.00 |
+|           150 |  7000.00 |
+|           160 |  7000.00 |
+|           170 |  7000.00 |
+|           180 |  7000.00 |
+|           190 |  7000.00 |
+|           200 |  7000.00 |
+|           210 |  7000.00 |
+|           220 |  7000.00 |
+|           230 |  7000.00 |
+|           240 |  7000.00 |
+|           250 |  7000.00 |
+|           260 |  7000.00 |
+|           270 |  7000.00 |
+|            60 |  6200.00 |
+|            50 |  6200.00 |
+|            10 |  6200.00 |
+|            30 |  6200.00 |
+|            90 |  6200.00 |
+|           100 |  6200.00 |
+|           110 |  6200.00 |
+|           120 |  6200.00 |
+|           130 |  6200.00 |
+|           140 |  6200.00 |
+|           150 |  6200.00 |
+|           160 |  6200.00 |
+|           170 |  6200.00 |
+|           180 |  6200.00 |
+|           190 |  6200.00 |
+|           200 |  6200.00 |
+|           210 |  6200.00 |
+|           220 |  6200.00 |
+|           230 |  6200.00 |
+|           240 |  6200.00 |
+|           250 |  6200.00 |
+|           260 |  6200.00 |
+|           270 |  6200.00 |
+|            60 |  3200.00 |
+|            50 |  3200.00 |
+|            10 |  3200.00 |
+|            30 |  3200.00 |
+|            90 |  3200.00 |
+|           100 |  3200.00 |
+|           110 |  3200.00 |
+|           120 |  3200.00 |
+|           130 |  3200.00 |
+|           140 |  3200.00 |
+|           150 |  3200.00 |
+|           160 |  3200.00 |
+|           170 |  3200.00 |
+|           180 |  3200.00 |
+|           190 |  3200.00 |
+|           200 |  3200.00 |
+|           210 |  3200.00 |
+|           220 |  3200.00 |
+|           230 |  3200.00 |
+|           240 |  3200.00 |
+|           250 |  3200.00 |
+|           260 |  3200.00 |
+|           270 |  3200.00 |
+|            60 |  3100.00 |
+|            50 |  3100.00 |
+|            10 |  3100.00 |
+|            30 |  3100.00 |
+|            90 |  3100.00 |
+|           100 |  3100.00 |
+|           110 |  3100.00 |
+|           120 |  3100.00 |
+|           130 |  3100.00 |
+|           140 |  3100.00 |
+|           150 |  3100.00 |
+|           160 |  3100.00 |
+|           170 |  3100.00 |
+|           180 |  3100.00 |
+|           190 |  3100.00 |
+|           200 |  3100.00 |
+|           210 |  3100.00 |
+|           220 |  3100.00 |
+|           230 |  3100.00 |
+|           240 |  3100.00 |
+|           250 |  3100.00 |
+|           260 |  3100.00 |
+|           270 |  3100.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 |  2800.00 |
+|            50 |  2800.00 |
+|            10 |  2800.00 |
+|            30 |  2800.00 |
+|            90 |  2800.00 |
+|           100 |  2800.00 |
+|           110 |  2800.00 |
+|           120 |  2800.00 |
+|           130 |  2800.00 |
+|           140 |  2800.00 |
+|           150 |  2800.00 |
+|           160 |  2800.00 |
+|           170 |  2800.00 |
+|           180 |  2800.00 |
+|           190 |  2800.00 |
+|           200 |  2800.00 |
+|           210 |  2800.00 |
+|           220 |  2800.00 |
+|           230 |  2800.00 |
+|           240 |  2800.00 |
+|           250 |  2800.00 |
+|           260 |  2800.00 |
+|           270 |  2800.00 |
+|            60 |  4200.00 |
+|            50 |  4200.00 |
+|            10 |  4200.00 |
+|            30 |  4200.00 |
+|            90 |  4200.00 |
+|           100 |  4200.00 |
+|           110 |  4200.00 |
+|           120 |  4200.00 |
+|           130 |  4200.00 |
+|           140 |  4200.00 |
+|           150 |  4200.00 |
+|           160 |  4200.00 |
+|           170 |  4200.00 |
+|           180 |  4200.00 |
+|           190 |  4200.00 |
+|           200 |  4200.00 |
+|           210 |  4200.00 |
+|           220 |  4200.00 |
+|           230 |  4200.00 |
+|           240 |  4200.00 |
+|           250 |  4200.00 |
+|           260 |  4200.00 |
+|           270 |  4200.00 |
+|            60 |  4100.00 |
+|            50 |  4100.00 |
+|            10 |  4100.00 |
+|            30 |  4100.00 |
+|            90 |  4100.00 |
+|           100 |  4100.00 |
+|           110 |  4100.00 |
+|           120 |  4100.00 |
+|           130 |  4100.00 |
+|           140 |  4100.00 |
+|           150 |  4100.00 |
+|           160 |  4100.00 |
+|           170 |  4100.00 |
+|           180 |  4100.00 |
+|           190 |  4100.00 |
+|           200 |  4100.00 |
+|           210 |  4100.00 |
+|           220 |  4100.00 |
+|           230 |  4100.00 |
+|           240 |  4100.00 |
+|           250 |  4100.00 |
+|           260 |  4100.00 |
+|           270 |  4100.00 |
+|            60 |  3400.00 |
+|            50 |  3400.00 |
+|            10 |  3400.00 |
+|            30 |  3400.00 |
+|            90 |  3400.00 |
+|           100 |  3400.00 |
+|           110 |  3400.00 |
+|           120 |  3400.00 |
+|           130 |  3400.00 |
+|           140 |  3400.00 |
+|           150 |  3400.00 |
+|           160 |  3400.00 |
+|           170 |  3400.00 |
+|           180 |  3400.00 |
+|           190 |  3400.00 |
+|           200 |  3400.00 |
+|           210 |  3400.00 |
+|           220 |  3400.00 |
+|           230 |  3400.00 |
+|           240 |  3400.00 |
+|           250 |  3400.00 |
+|           260 |  3400.00 |
+|           270 |  3400.00 |
+|            60 |  3000.00 |
+|            50 |  3000.00 |
+|            10 |  3000.00 |
+|            30 |  3000.00 |
+|            90 |  3000.00 |
+|           100 |  3000.00 |
+|           110 |  3000.00 |
+|           120 |  3000.00 |
+|           130 |  3000.00 |
+|           140 |  3000.00 |
+|           150 |  3000.00 |
+|           160 |  3000.00 |
+|           170 |  3000.00 |
+|           180 |  3000.00 |
+|           190 |  3000.00 |
+|           200 |  3000.00 |
+|           210 |  3000.00 |
+|           220 |  3000.00 |
+|           230 |  3000.00 |
+|           240 |  3000.00 |
+|           250 |  3000.00 |
+|           260 |  3000.00 |
+|           270 |  3000.00 |
+|            60 |  3800.00 |
+|            50 |  3800.00 |
+|            10 |  3800.00 |
+|            30 |  3800.00 |
+|            90 |  3800.00 |
+|           100 |  3800.00 |
+|           110 |  3800.00 |
+|           120 |  3800.00 |
+|           130 |  3800.00 |
+|           140 |  3800.00 |
+|           150 |  3800.00 |
+|           160 |  3800.00 |
+|           170 |  3800.00 |
+|           180 |  3800.00 |
+|           190 |  3800.00 |
+|           200 |  3800.00 |
+|           210 |  3800.00 |
+|           220 |  3800.00 |
+|           230 |  3800.00 |
+|           240 |  3800.00 |
+|           250 |  3800.00 |
+|           260 |  3800.00 |
+|           270 |  3800.00 |
+|            60 |  3600.00 |
+|            50 |  3600.00 |
+|            10 |  3600.00 |
+|            30 |  3600.00 |
+|            90 |  3600.00 |
+|           100 |  3600.00 |
+|           110 |  3600.00 |
+|           120 |  3600.00 |
+|           130 |  3600.00 |
+|           140 |  3600.00 |
+|           150 |  3600.00 |
+|           160 |  3600.00 |
+|           170 |  3600.00 |
+|           180 |  3600.00 |
+|           190 |  3600.00 |
+|           200 |  3600.00 |
+|           210 |  3600.00 |
+|           220 |  3600.00 |
+|           230 |  3600.00 |
+|           240 |  3600.00 |
+|           250 |  3600.00 |
+|           260 |  3600.00 |
+|           270 |  3600.00 |
+|            60 |  2900.00 |
+|            50 |  2900.00 |
+|            10 |  2900.00 |
+|            30 |  2900.00 |
+|            90 |  2900.00 |
+|           100 |  2900.00 |
+|           110 |  2900.00 |
+|           120 |  2900.00 |
+|           130 |  2900.00 |
+|           140 |  2900.00 |
+|           150 |  2900.00 |
+|           160 |  2900.00 |
+|           170 |  2900.00 |
+|           180 |  2900.00 |
+|           190 |  2900.00 |
+|           200 |  2900.00 |
+|           210 |  2900.00 |
+|           220 |  2900.00 |
+|           230 |  2900.00 |
+|           240 |  2900.00 |
+|           250 |  2900.00 |
+|           260 |  2900.00 |
+|           270 |  2900.00 |
+|            60 |  2500.00 |
+|            50 |  2500.00 |
+|            10 |  2500.00 |
+|            30 |  2500.00 |
+|            90 |  2500.00 |
+|           100 |  2500.00 |
+|           110 |  2500.00 |
+|           120 |  2500.00 |
+|           130 |  2500.00 |
+|           140 |  2500.00 |
+|           150 |  2500.00 |
+|           160 |  2500.00 |
+|           170 |  2500.00 |
+|           180 |  2500.00 |
+|           190 |  2500.00 |
+|           200 |  2500.00 |
+|           210 |  2500.00 |
+|           220 |  2500.00 |
+|           230 |  2500.00 |
+|           240 |  2500.00 |
+|           250 |  2500.00 |
+|           260 |  2500.00 |
+|           270 |  2500.00 |
+|            60 |  4000.00 |
+|            50 |  4000.00 |
+|            10 |  4000.00 |
+|            30 |  4000.00 |
+|            90 |  4000.00 |
+|           100 |  4000.00 |
+|           110 |  4000.00 |
+|           120 |  4000.00 |
+|           130 |  4000.00 |
+|           140 |  4000.00 |
+|           150 |  4000.00 |
+|           160 |  4000.00 |
+|           170 |  4000.00 |
+|           180 |  4000.00 |
+|           190 |  4000.00 |
+|           200 |  4000.00 |
+|           210 |  4000.00 |
+|           220 |  4000.00 |
+|           230 |  4000.00 |
+|           240 |  4000.00 |
+|           250 |  4000.00 |
+|           260 |  4000.00 |
+|           270 |  4000.00 |
+|            60 |  3900.00 |
+|            50 |  3900.00 |
+|            10 |  3900.00 |
+|            30 |  3900.00 |
+|            90 |  3900.00 |
+|           100 |  3900.00 |
+|           110 |  3900.00 |
+|           120 |  3900.00 |
+|           130 |  3900.00 |
+|           140 |  3900.00 |
+|           150 |  3900.00 |
+|           160 |  3900.00 |
+|           170 |  3900.00 |
+|           180 |  3900.00 |
+|           190 |  3900.00 |
+|           200 |  3900.00 |
+|           210 |  3900.00 |
+|           220 |  3900.00 |
+|           230 |  3900.00 |
+|           240 |  3900.00 |
+|           250 |  3900.00 |
+|           260 |  3900.00 |
+|           270 |  3900.00 |
+|            60 |  3200.00 |
+|            50 |  3200.00 |
+|            10 |  3200.00 |
+|            30 |  3200.00 |
+|            90 |  3200.00 |
+|           100 |  3200.00 |
+|           110 |  3200.00 |
+|           120 |  3200.00 |
+|           130 |  3200.00 |
+|           140 |  3200.00 |
+|           150 |  3200.00 |
+|           160 |  3200.00 |
+|           170 |  3200.00 |
+|           180 |  3200.00 |
+|           190 |  3200.00 |
+|           200 |  3200.00 |
+|           210 |  3200.00 |
+|           220 |  3200.00 |
+|           230 |  3200.00 |
+|           240 |  3200.00 |
+|           250 |  3200.00 |
+|           260 |  3200.00 |
+|           270 |  3200.00 |
+|            60 |  2800.00 |
+|            50 |  2800.00 |
+|            10 |  2800.00 |
+|            30 |  2800.00 |
+|            90 |  2800.00 |
+|           100 |  2800.00 |
+|           110 |  2800.00 |
+|           120 |  2800.00 |
+|           130 |  2800.00 |
+|           140 |  2800.00 |
+|           150 |  2800.00 |
+|           160 |  2800.00 |
+|           170 |  2800.00 |
+|           180 |  2800.00 |
+|           190 |  2800.00 |
+|           200 |  2800.00 |
+|           210 |  2800.00 |
+|           220 |  2800.00 |
+|           230 |  2800.00 |
+|           240 |  2800.00 |
+|           250 |  2800.00 |
+|           260 |  2800.00 |
+|           270 |  2800.00 |
+|            60 |  3100.00 |
+|            50 |  3100.00 |
+|            10 |  3100.00 |
+|            30 |  3100.00 |
+|            90 |  3100.00 |
+|           100 |  3100.00 |
+|           110 |  3100.00 |
+|           120 |  3100.00 |
+|           130 |  3100.00 |
+|           140 |  3100.00 |
+|           150 |  3100.00 |
+|           160 |  3100.00 |
+|           170 |  3100.00 |
+|           180 |  3100.00 |
+|           190 |  3100.00 |
+|           200 |  3100.00 |
+|           210 |  3100.00 |
+|           220 |  3100.00 |
+|           230 |  3100.00 |
+|           240 |  3100.00 |
+|           250 |  3100.00 |
+|           260 |  3100.00 |
+|           270 |  3100.00 |
+|            60 |  3000.00 |
+|            50 |  3000.00 |
+|            10 |  3000.00 |
+|            30 |  3000.00 |
+|            90 |  3000.00 |
+|           100 |  3000.00 |
+|           110 |  3000.00 |
+|           120 |  3000.00 |
+|           130 |  3000.00 |
+|           140 |  3000.00 |
+|           150 |  3000.00 |
+|           160 |  3000.00 |
+|           170 |  3000.00 |
+|           180 |  3000.00 |
+|           190 |  3000.00 |
+|           200 |  3000.00 |
+|           210 |  3000.00 |
+|           220 |  3000.00 |
+|           230 |  3000.00 |
+|           240 |  3000.00 |
+|           250 |  3000.00 |
+|           260 |  3000.00 |
+|           270 |  3000.00 |
+|            60 |  2600.00 |
+|            50 |  2600.00 |
+|            10 |  2600.00 |
+|            30 |  2600.00 |
+|            90 |  2600.00 |
+|           100 |  2600.00 |
+|           110 |  2600.00 |
+|           120 |  2600.00 |
+|           130 |  2600.00 |
+|           140 |  2600.00 |
+|           150 |  2600.00 |
+|           160 |  2600.00 |
+|           170 |  2600.00 |
+|           180 |  2600.00 |
+|           190 |  2600.00 |
+|           200 |  2600.00 |
+|           210 |  2600.00 |
+|           220 |  2600.00 |
+|           230 |  2600.00 |
+|           240 |  2600.00 |
+|           250 |  2600.00 |
+|           260 |  2600.00 |
+|           270 |  2600.00 |
+|            60 |  2600.00 |
+|            50 |  2600.00 |
+|            10 |  2600.00 |
+|            30 |  2600.00 |
+|            90 |  2600.00 |
+|           100 |  2600.00 |
+|           110 |  2600.00 |
+|           120 |  2600.00 |
+|           130 |  2600.00 |
+|           140 |  2600.00 |
+|           150 |  2600.00 |
+|           160 |  2600.00 |
+|           170 |  2600.00 |
+|           180 |  2600.00 |
+|           190 |  2600.00 |
+|           200 |  2600.00 |
+|           210 |  2600.00 |
+|           220 |  2600.00 |
+|           230 |  2600.00 |
+|           240 |  2600.00 |
+|           250 |  2600.00 |
+|           260 |  2600.00 |
+|           270 |  2600.00 |
+|            60 |  4400.00 |
+|            50 |  4400.00 |
+|            10 |  4400.00 |
+|            30 |  4400.00 |
+|            90 |  4400.00 |
+|           100 |  4400.00 |
+|           110 |  4400.00 |
+|           120 |  4400.00 |
+|           130 |  4400.00 |
+|           140 |  4400.00 |
+|           150 |  4400.00 |
+|           160 |  4400.00 |
+|           170 |  4400.00 |
+|           180 |  4400.00 |
+|           190 |  4400.00 |
+|           200 |  4400.00 |
+|           210 |  4400.00 |
+|           220 |  4400.00 |
+|           230 |  4400.00 |
+|           240 |  4400.00 |
+|           250 |  4400.00 |
+|           260 |  4400.00 |
+|           270 |  4400.00 |
+|            60 | 13000.00 |
+|            50 | 13000.00 |
+|            10 | 13000.00 |
+|            30 | 13000.00 |
+|            90 | 13000.00 |
+|           100 | 13000.00 |
+|           110 | 13000.00 |
+|           120 | 13000.00 |
+|           130 | 13000.00 |
+|           140 | 13000.00 |
+|           150 | 13000.00 |
+|           160 | 13000.00 |
+|           170 | 13000.00 |
+|           180 | 13000.00 |
+|           190 | 13000.00 |
+|           200 | 13000.00 |
+|           210 | 13000.00 |
+|           220 | 13000.00 |
+|           230 | 13000.00 |
+|           240 | 13000.00 |
+|           250 | 13000.00 |
+|           260 | 13000.00 |
+|           270 | 13000.00 |
+|            60 |  6000.00 |
+|            50 |  6000.00 |
+|            10 |  6000.00 |
+|            30 |  6000.00 |
+|            90 |  6000.00 |
+|           100 |  6000.00 |
+|           110 |  6000.00 |
+|           120 |  6000.00 |
+|           130 |  6000.00 |
+|           140 |  6000.00 |
+|           150 |  6000.00 |
+|           160 |  6000.00 |
+|           170 |  6000.00 |
+|           180 |  6000.00 |
+|           190 |  6000.00 |
+|           200 |  6000.00 |
+|           210 |  6000.00 |
+|           220 |  6000.00 |
+|           230 |  6000.00 |
+|           240 |  6000.00 |
+|           250 |  6000.00 |
+|           260 |  6000.00 |
+|           270 |  6000.00 |
+|            60 |  6500.00 |
+|            50 |  6500.00 |
+|            10 |  6500.00 |
+|            30 |  6500.00 |
+|            90 |  6500.00 |
+|           100 |  6500.00 |
+|           110 |  6500.00 |
+|           120 |  6500.00 |
+|           130 |  6500.00 |
+|           140 |  6500.00 |
+|           150 |  6500.00 |
+|           160 |  6500.00 |
+|           170 |  6500.00 |
+|           180 |  6500.00 |
+|           190 |  6500.00 |
+|           200 |  6500.00 |
+|           210 |  6500.00 |
+|           220 |  6500.00 |
+|           230 |  6500.00 |
+|           240 |  6500.00 |
+|           250 |  6500.00 |
+|           260 |  6500.00 |
+|           270 |  6500.00 |
+|            60 | 10000.00 |
+|            50 | 10000.00 |
+|            10 | 10000.00 |
+|            30 | 10000.00 |
+|            90 | 10000.00 |
+|           100 | 10000.00 |
+|           110 | 10000.00 |
+|           120 | 10000.00 |
+|           130 | 10000.00 |
+|           140 | 10000.00 |
+|           150 | 10000.00 |
+|           160 | 10000.00 |
+|           170 | 10000.00 |
+|           180 | 10000.00 |
+|           190 | 10000.00 |
+|           200 | 10000.00 |
+|           210 | 10000.00 |
+|           220 | 10000.00 |
+|           230 | 10000.00 |
+|           240 | 10000.00 |
+|           250 | 10000.00 |
+|           260 | 10000.00 |
+|           270 | 10000.00 |
+|            60 | 12000.00 |
+|            50 | 12000.00 |
+|            10 | 12000.00 |
+|            30 | 12000.00 |
+|            90 | 12000.00 |
+|           100 | 12000.00 |
+|           110 | 12000.00 |
+|           120 | 12000.00 |
+|           130 | 12000.00 |
+|           140 | 12000.00 |
+|           150 | 12000.00 |
+|           160 | 12000.00 |
+|           170 | 12000.00 |
+|           180 | 12000.00 |
+|           190 | 12000.00 |
+|           200 | 12000.00 |
+|           210 | 12000.00 |
+|           220 | 12000.00 |
+|           230 | 12000.00 |
+|           240 | 12000.00 |
+|           250 | 12000.00 |
+|           260 | 12000.00 |
+|           270 | 12000.00 |
+|            60 |  8300.00 |
+|            50 |  8300.00 |
+|            10 |  8300.00 |
+|            30 |  8300.00 |
+|            90 |  8300.00 |
+|           100 |  8300.00 |
+|           110 |  8300.00 |
+|           120 |  8300.00 |
+|           130 |  8300.00 |
+|           140 |  8300.00 |
+|           150 |  8300.00 |
+|           160 |  8300.00 |
+|           170 |  8300.00 |
+|           180 |  8300.00 |
+|           190 |  8300.00 |
+|           200 |  8300.00 |
+|           210 |  8300.00 |
+|           220 |  8300.00 |
+|           230 |  8300.00 |
+|           240 |  8300.00 |
+|           250 |  8300.00 |
+|           260 |  8300.00 |
+|           270 |  8300.00 |
++---------------+----------+
+2461 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> q
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'q' at line 1
+MariaDB [csd2204w18]> where country_id ='US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where country_id ='US')' at line 1
+MariaDB [csd2204w18]> select D.department_id,distinct salary from departments D,employees E where location_id IN (select location_id from locations where country_id ='US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct salary from departments D,employees E where location_id IN (select loca' at line 1
+MariaDB [csd2204w18]> select D.department_id,distinct (salary) from departments D,employees E where location_id IN (select location_id from locations where country_id ='US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct (salary) from departments D,employees E where location_id IN (select lo' at line 1
+MariaDB [csd2204w18]> select D.department_id,distinct(salary) from departments D,employees E where location_id IN (select location_id from locations where country_id ='US');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct(salary) from departments D,employees E where location_id IN (select loc' at line 1
+MariaDB [csd2204w18]> select first_name,salary from employees where department_id IN (department_id
+    -> IN 9select department_id from departments where location_id IN (select location_id from locations where country_id ='US'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '9select department_id from departments where location_id IN (select location_id ' at line 2
+MariaDB [csd2204w18]> select first_name,salary from employees where department_id IN (department_id
+    -> IN (select department_id from departments where location_id IN (select location_id from locations where country_id ='US'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [csd2204w18]> Select first_name,salary from employees where department_id IN ( department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w18]> Select first_name,salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++-------------+----------+
+| first_name  | salary   |
++-------------+----------+
+| Alexander   |  9000.00 |
+| Bruce       |  6000.00 |
+| David       |  4800.00 |
+| Valli       |  4800.00 |
+| Diana       |  4200.00 |
+| Matthew     |  8000.00 |
+| Adam        |  8200.00 |
+| Payam       |  7900.00 |
+| Shanta      |  6500.00 |
+| Kevin       |  5800.00 |
+| Julia       |  3200.00 |
+| Irene       |  2700.00 |
+| James       |  2400.00 |
+| Steven      |  2200.00 |
+| Laura       |  3300.00 |
+| Mozhe       |  2800.00 |
+| James       |  2500.00 |
+| TJ          |  2100.00 |
+| Jason       |  3300.00 |
+| Michael     |  2900.00 |
+| Ki          |  2400.00 |
+| Hazel       |  2200.00 |
+| Renske      |  3600.00 |
+| Stephen     |  3200.00 |
+| John        |  2700.00 |
+| Joshua      |  2500.00 |
+| Trenna      |  3500.00 |
+| Curtis      |  3100.00 |
+| Randall     |  2600.00 |
+| Peter       |  2500.00 |
+| Winston     |  3200.00 |
+| Jean        |  3100.00 |
+| Martha      |  2500.00 |
+| Girard      |  2800.00 |
+| Nandita     |  4200.00 |
+| Alexis      |  4100.00 |
+| Julia       |  3400.00 |
+| Anthony     |  3000.00 |
+| Kelly       |  3800.00 |
+| Jennifer    |  3600.00 |
+| Timothy     |  2900.00 |
+| Randall     |  2500.00 |
+| Sarah       |  4000.00 |
+| Britney     |  3900.00 |
+| Samuel      |  3200.00 |
+| Vance       |  2800.00 |
+| Alana       |  3100.00 |
+| Kevin       |  3000.00 |
+| Donald      |  2600.00 |
+| Douglas     |  2600.00 |
+| Jennifer    |  4400.00 |
+| Den         | 11000.00 |
+| Alexander   |  3100.00 |
+| Shelli      |  2900.00 |
+| Sigal       |  2800.00 |
+| Guy         |  2600.00 |
+| Karen       |  2500.00 |
+| Steven      | 24000.00 |
+| Neena       | 17000.00 |
+| Lex         | 17000.00 |
+| Nancy       | 12000.00 |
+| Daniel      |  9000.00 |
+| John        |  8200.00 |
+| Ismael      |  7700.00 |
+| Jose Manuel |  7800.00 |
+| Luis        |  6900.00 |
+| Shelley     | 12000.00 |
+| William     |  8300.00 |
++-------------+----------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id,salary from departments where location_id IN (select location_id from locations
+    ->  where country_id ='US');
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+MariaDB [csd2204w18]> select department_id,salary from departments where location_id IN (select location_id from locations
+    ->  where country_id ='US');
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations
+    ->  where country_id ='US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++-------------+----------+---------------+
+| first_name  | salary   | department_id |
++-------------+----------+---------------+
+| Alexander   |  9000.00 |            60 |
+| Bruce       |  6000.00 |            60 |
+| David       |  4800.00 |            60 |
+| Valli       |  4800.00 |            60 |
+| Diana       |  4200.00 |            60 |
+| Matthew     |  8000.00 |            50 |
+| Adam        |  8200.00 |            50 |
+| Payam       |  7900.00 |            50 |
+| Shanta      |  6500.00 |            50 |
+| Kevin       |  5800.00 |            50 |
+| Julia       |  3200.00 |            50 |
+| Irene       |  2700.00 |            50 |
+| James       |  2400.00 |            50 |
+| Steven      |  2200.00 |            50 |
+| Laura       |  3300.00 |            50 |
+| Mozhe       |  2800.00 |            50 |
+| James       |  2500.00 |            50 |
+| TJ          |  2100.00 |            50 |
+| Jason       |  3300.00 |            50 |
+| Michael     |  2900.00 |            50 |
+| Ki          |  2400.00 |            50 |
+| Hazel       |  2200.00 |            50 |
+| Renske      |  3600.00 |            50 |
+| Stephen     |  3200.00 |            50 |
+| John        |  2700.00 |            50 |
+| Joshua      |  2500.00 |            50 |
+| Trenna      |  3500.00 |            50 |
+| Curtis      |  3100.00 |            50 |
+| Randall     |  2600.00 |            50 |
+| Peter       |  2500.00 |            50 |
+| Winston     |  3200.00 |            50 |
+| Jean        |  3100.00 |            50 |
+| Martha      |  2500.00 |            50 |
+| Girard      |  2800.00 |            50 |
+| Nandita     |  4200.00 |            50 |
+| Alexis      |  4100.00 |            50 |
+| Julia       |  3400.00 |            50 |
+| Anthony     |  3000.00 |            50 |
+| Kelly       |  3800.00 |            50 |
+| Jennifer    |  3600.00 |            50 |
+| Timothy     |  2900.00 |            50 |
+| Randall     |  2500.00 |            50 |
+| Sarah       |  4000.00 |            50 |
+| Britney     |  3900.00 |            50 |
+| Samuel      |  3200.00 |            50 |
+| Vance       |  2800.00 |            50 |
+| Alana       |  3100.00 |            50 |
+| Kevin       |  3000.00 |            50 |
+| Donald      |  2600.00 |            50 |
+| Douglas     |  2600.00 |            50 |
+| Jennifer    |  4400.00 |            10 |
+| Den         | 11000.00 |            30 |
+| Alexander   |  3100.00 |            30 |
+| Shelli      |  2900.00 |            30 |
+| Sigal       |  2800.00 |            30 |
+| Guy         |  2600.00 |            30 |
+| Karen       |  2500.00 |            30 |
+| Steven      | 24000.00 |            90 |
+| Neena       | 17000.00 |            90 |
+| Lex         | 17000.00 |            90 |
+| Nancy       | 12000.00 |           100 |
+| Daniel      |  9000.00 |           100 |
+| John        |  8200.00 |           100 |
+| Ismael      |  7700.00 |           100 |
+| Jose Manuel |  7800.00 |           100 |
+| Luis        |  6900.00 |           100 |
+| Shelley     | 12000.00 |           110 |
+| William     |  8300.00 |           110 |
++-------------+----------+---------------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select first_name,salary,department_id from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US')));
+ERROR 1241 (21000): Operand should contain 1 column(s)
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++-------------+----------+---------------+
+| first_name  | salary   | department_id |
++-------------+----------+---------------+
+| Alexander   |  9000.00 |            60 |
+| Bruce       |  6000.00 |            60 |
+| David       |  4800.00 |            60 |
+| Valli       |  4800.00 |            60 |
+| Diana       |  4200.00 |            60 |
+| Matthew     |  8000.00 |            50 |
+| Adam        |  8200.00 |            50 |
+| Payam       |  7900.00 |            50 |
+| Shanta      |  6500.00 |            50 |
+| Kevin       |  5800.00 |            50 |
+| Julia       |  3200.00 |            50 |
+| Irene       |  2700.00 |            50 |
+| James       |  2400.00 |            50 |
+| Steven      |  2200.00 |            50 |
+| Laura       |  3300.00 |            50 |
+| Mozhe       |  2800.00 |            50 |
+| James       |  2500.00 |            50 |
+| TJ          |  2100.00 |            50 |
+| Jason       |  3300.00 |            50 |
+| Michael     |  2900.00 |            50 |
+| Ki          |  2400.00 |            50 |
+| Hazel       |  2200.00 |            50 |
+| Renske      |  3600.00 |            50 |
+| Stephen     |  3200.00 |            50 |
+| John        |  2700.00 |            50 |
+| Joshua      |  2500.00 |            50 |
+| Trenna      |  3500.00 |            50 |
+| Curtis      |  3100.00 |            50 |
+| Randall     |  2600.00 |            50 |
+| Peter       |  2500.00 |            50 |
+| Winston     |  3200.00 |            50 |
+| Jean        |  3100.00 |            50 |
+| Martha      |  2500.00 |            50 |
+| Girard      |  2800.00 |            50 |
+| Nandita     |  4200.00 |            50 |
+| Alexis      |  4100.00 |            50 |
+| Julia       |  3400.00 |            50 |
+| Anthony     |  3000.00 |            50 |
+| Kelly       |  3800.00 |            50 |
+| Jennifer    |  3600.00 |            50 |
+| Timothy     |  2900.00 |            50 |
+| Randall     |  2500.00 |            50 |
+| Sarah       |  4000.00 |            50 |
+| Britney     |  3900.00 |            50 |
+| Samuel      |  3200.00 |            50 |
+| Vance       |  2800.00 |            50 |
+| Alana       |  3100.00 |            50 |
+| Kevin       |  3000.00 |            50 |
+| Donald      |  2600.00 |            50 |
+| Douglas     |  2600.00 |            50 |
+| Jennifer    |  4400.00 |            10 |
+| Den         | 11000.00 |            30 |
+| Alexander   |  3100.00 |            30 |
+| Shelli      |  2900.00 |            30 |
+| Sigal       |  2800.00 |            30 |
+| Guy         |  2600.00 |            30 |
+| Karen       |  2500.00 |            30 |
+| Steven      | 24000.00 |            90 |
+| Neena       | 17000.00 |            90 |
+| Lex         | 17000.00 |            90 |
+| Nancy       | 12000.00 |           100 |
+| Daniel      |  9000.00 |           100 |
+| John        |  8200.00 |           100 |
+| Ismael      |  7700.00 |           100 |
+| Jose Manuel |  7800.00 |           100 |
+| Luis        |  6900.00 |           100 |
+| Shelley     | 12000.00 |           110 |
+| William     |  8300.00 |           110 |
++-------------+----------+---------------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US')));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from employees where department_id IN (select department_id from departments whe' at line 3
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US')));
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select B.salary from employees where B.department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ) B);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'B)' at line 3
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select B.salary from employees where B.department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ) as B);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as B)' at line 3
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select B.salary from employees where B.department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ));
+ERROR 1054 (42S22): Unknown column 'B.salary' in 'field list'
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ));
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> select distinct manager_id from employees;
++------------+
+| manager_id |
++------------+
+|          0 |
+|        100 |
+|        101 |
+|        102 |
+|        103 |
+|        108 |
+|        114 |
+|        120 |
+|        121 |
+|        122 |
+|        123 |
+|        124 |
+|        145 |
+|        146 |
+|        147 |
+|        148 |
+|        149 |
+|        201 |
+|        205 |
++------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations  where country_id ='US';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w18]> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where employee_id NOT IN (select distinct manager_id from employees) and salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') ));
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> select location_id from locations  where country_id ='US';
++-------------+
+| location_id |
++-------------+
+|        1400 |
+|        1500 |
+|        1600 |
+|        1700 |
++-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select department_id from departments where location_id IN (select location_id from locations  where country_id ='US');
++---------------+
+| department_id |
++---------------+
+|            60 |
+|            50 |
+|            10 |
+|            30 |
+|            90 |
+|           100 |
+|           110 |
+|           120 |
+|           130 |
+|           140 |
+|           150 |
+|           160 |
+|           170 |
+|           180 |
+|           190 |
+|           200 |
+|           210 |
+|           220 |
+|           230 |
+|           240 |
+|           250 |
+|           260 |
+|           270 |
++---------------+
+23 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US') );
++----------+
+| salary   |
++----------+
+|  9000.00 |
+|  6000.00 |
+|  4800.00 |
+|  4800.00 |
+|  4200.00 |
+|  8000.00 |
+|  8200.00 |
+|  7900.00 |
+|  6500.00 |
+|  5800.00 |
+|  3200.00 |
+|  2700.00 |
+|  2400.00 |
+|  2200.00 |
+|  3300.00 |
+|  2800.00 |
+|  2500.00 |
+|  2100.00 |
+|  3300.00 |
+|  2900.00 |
+|  2400.00 |
+|  2200.00 |
+|  3600.00 |
+|  3200.00 |
+|  2700.00 |
+|  2500.00 |
+|  3500.00 |
+|  3100.00 |
+|  2600.00 |
+|  2500.00 |
+|  3200.00 |
+|  3100.00 |
+|  2500.00 |
+|  2800.00 |
+|  4200.00 |
+|  4100.00 |
+|  3400.00 |
+|  3000.00 |
+|  3800.00 |
+|  3600.00 |
+|  2900.00 |
+|  2500.00 |
+|  4000.00 |
+|  3900.00 |
+|  3200.00 |
+|  2800.00 |
+|  3100.00 |
+|  3000.00 |
+|  2600.00 |
+|  2600.00 |
+|  4400.00 |
+| 11000.00 |
+|  3100.00 |
+|  2900.00 |
+|  2800.00 |
+|  2600.00 |
+|  2500.00 |
+| 24000.00 |
+| 17000.00 |
+| 17000.00 |
+| 12000.00 |
+|  9000.00 |
+|  8200.00 |
+|  7700.00 |
+|  7800.00 |
+|  6900.00 |
+| 12000.00 |
+|  8300.00 |
++----------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> (select distinct manager_id from employees) ;
++------------+
+| manager_id |
++------------+
+|          0 |
+|        100 |
+|        101 |
+|        102 |
+|        103 |
+|        108 |
+|        114 |
+|        120 |
+|        121 |
+|        122 |
+|        123 |
+|        124 |
+|        145 |
+|        146 |
+|        147 |
+|        148 |
+|        149 |
+|        201 |
+|        205 |
++------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++----------+
+| salary   |
++----------+
+|  9000.00 |
+|  6000.00 |
+|  4800.00 |
+|  4800.00 |
+|  4200.00 |
+|  8000.00 |
+|  8200.00 |
+|  7900.00 |
+|  6500.00 |
+|  5800.00 |
+|  3200.00 |
+|  2700.00 |
+|  2400.00 |
+|  2200.00 |
+|  3300.00 |
+|  2800.00 |
+|  2500.00 |
+|  2100.00 |
+|  3300.00 |
+|  2900.00 |
+|  2400.00 |
+|  2200.00 |
+|  3600.00 |
+|  3200.00 |
+|  2700.00 |
+|  2500.00 |
+|  3500.00 |
+|  3100.00 |
+|  2600.00 |
+|  2500.00 |
+|  3200.00 |
+|  3100.00 |
+|  2500.00 |
+|  2800.00 |
+|  4200.00 |
+|  4100.00 |
+|  3400.00 |
+|  3000.00 |
+|  3800.00 |
+|  3600.00 |
+|  2900.00 |
+|  2500.00 |
+|  4000.00 |
+|  3900.00 |
+|  3200.00 |
+|  2800.00 |
+|  3100.00 |
+|  3000.00 |
+|  2600.00 |
+|  2600.00 |
+|  4400.00 |
+| 11000.00 |
+|  3100.00 |
+|  2900.00 |
+|  2800.00 |
+|  2600.00 |
+|  2500.00 |
+| 24000.00 |
+| 17000.00 |
+| 17000.00 |
+| 12000.00 |
+|  9000.00 |
+|  8200.00 |
+|  7700.00 |
+|  7800.00 |
+|  6900.00 |
+| 12000.00 |
+|  8300.00 |
++----------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees
+    -> where salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US')))
+    -> ;
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]>   Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++----------+
+| salary   |
++----------+
+|  9000.00 |
+|  6000.00 |
+|  4800.00 |
+|  4800.00 |
+|  4200.00 |
+|  8000.00 |
+|  8200.00 |
+|  7900.00 |
+|  6500.00 |
+|  5800.00 |
+|  3200.00 |
+|  2700.00 |
+|  2400.00 |
+|  2200.00 |
+|  3300.00 |
+|  2800.00 |
+|  2500.00 |
+|  2100.00 |
+|  3300.00 |
+|  2900.00 |
+|  2400.00 |
+|  2200.00 |
+|  3600.00 |
+|  3200.00 |
+|  2700.00 |
+|  2500.00 |
+|  3500.00 |
+|  3100.00 |
+|  2600.00 |
+|  2500.00 |
+|  3200.00 |
+|  3100.00 |
+|  2500.00 |
+|  2800.00 |
+|  4200.00 |
+|  4100.00 |
+|  3400.00 |
+|  3000.00 |
+|  3800.00 |
+|  3600.00 |
+|  2900.00 |
+|  2500.00 |
+|  4000.00 |
+|  3900.00 |
+|  3200.00 |
+|  2800.00 |
+|  3100.00 |
+|  3000.00 |
+|  2600.00 |
+|  2600.00 |
+|  4400.00 |
+| 11000.00 |
+|  3100.00 |
+|  2900.00 |
+|  2800.00 |
+|  2600.00 |
+|  2500.00 |
+| 24000.00 |
+| 17000.00 |
+| 17000.00 |
+| 12000.00 |
+|  9000.00 |
+|  8200.00 |
+|  7700.00 |
+|  7800.00 |
+|  6900.00 |
+| 12000.00 |
+|  8300.00 |
++----------+
+68 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where E.salary > (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where E.salary > (
+    -> Select distinct salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w18]> Select distinct salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') and E.employee_id NOT IN (select distinct manager_id from employees)' at line 1
+MariaDB [csd2204w18]>   Select distinct salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'));
++----------+
+| salary   |
++----------+
+|  9000.00 |
+|  6000.00 |
+|  4800.00 |
+|  4200.00 |
+|  8000.00 |
+|  8200.00 |
+|  7900.00 |
+|  6500.00 |
+|  5800.00 |
+|  3200.00 |
+|  2700.00 |
+|  2400.00 |
+|  2200.00 |
+|  3300.00 |
+|  2800.00 |
+|  2500.00 |
+|  2100.00 |
+|  2900.00 |
+|  3600.00 |
+|  3500.00 |
+|  3100.00 |
+|  2600.00 |
+|  4100.00 |
+|  3400.00 |
+|  3000.00 |
+|  3800.00 |
+|  4000.00 |
+|  3900.00 |
+|  4400.00 |
+| 11000.00 |
+| 24000.00 |
+| 17000.00 |
+| 12000.00 |
+|  7700.00 |
+|  7800.00 |
+|  6900.00 |
+|  8300.00 |
++----------+
+37 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where E.salary > ANY (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
++-------------+----------+---------------+
+| first_name  | salary   | department_id |
++-------------+----------+---------------+
+| Bruce       |  6000.00 |            60 |
+| David       |  4800.00 |            60 |
+| Valli       |  4800.00 |            60 |
+| Diana       |  4200.00 |            60 |
+| Daniel      |  9000.00 |           100 |
+| John        |  8200.00 |           100 |
+| Ismael      |  7700.00 |           100 |
+| Jose Manuel |  7800.00 |           100 |
+| Luis        |  6900.00 |           100 |
+| Alexander   |  3100.00 |            30 |
+| Shelli      |  2900.00 |            30 |
+| Sigal       |  2800.00 |            30 |
+| Guy         |  2600.00 |            30 |
+| Karen       |  2500.00 |            30 |
+| Julia       |  3200.00 |            50 |
+| Irene       |  2700.00 |            50 |
+| James       |  2400.00 |            50 |
+| Steven      |  2200.00 |            50 |
+| Laura       |  3300.00 |            50 |
+| Mozhe       |  2800.00 |            50 |
+| James       |  2500.00 |            50 |
+| Jason       |  3300.00 |            50 |
+| Michael     |  2900.00 |            50 |
+| Ki          |  2400.00 |            50 |
+| Hazel       |  2200.00 |            50 |
+| Renske      |  3600.00 |            50 |
+| Stephen     |  3200.00 |            50 |
+| John        |  2700.00 |            50 |
+| Joshua      |  2500.00 |            50 |
+| Trenna      |  3500.00 |            50 |
+| Curtis      |  3100.00 |            50 |
+| Randall     |  2600.00 |            50 |
+| Peter       |  2500.00 |            50 |
+| Peter       | 10000.00 |            80 |
+| David       |  9500.00 |            80 |
+| Peter       |  9000.00 |            80 |
+| Christopher |  8000.00 |            80 |
+| Nanette     |  7500.00 |            80 |
+| Oliver      |  7000.00 |            80 |
+| Janette     | 10000.00 |            80 |
+| Patrick     |  9500.00 |            80 |
+| Allan       |  9000.00 |            80 |
+| Lindsey     |  8000.00 |            80 |
+| Louise      |  7500.00 |            80 |
+| Sarath      |  7000.00 |            80 |
+| Clara       | 10500.00 |            80 |
+| Danielle    |  9500.00 |            80 |
+| Mattea      |  7200.00 |            80 |
+| David       |  6800.00 |            80 |
+| Sundar      |  6400.00 |            80 |
+| Amit        |  6200.00 |            80 |
+| Lisa        | 11500.00 |            80 |
+| Harrison    | 10000.00 |            80 |
+| Tayler      |  9600.00 |            80 |
+| William     |  7400.00 |            80 |
+| Elizabeth   |  7300.00 |            80 |
+| Sundita     |  6100.00 |            80 |
+| Ellen       | 11000.00 |            80 |
+| Alyssa      |  8800.00 |            80 |
+| Jonathon    |  8600.00 |            80 |
+| Jack        |  8400.00 |            80 |
+| Kimberely   |  7000.00 |             0 |
+| Charles     |  6200.00 |            80 |
+| Winston     |  3200.00 |            50 |
+| Jean        |  3100.00 |            50 |
+| Martha      |  2500.00 |            50 |
+| Girard      |  2800.00 |            50 |
+| Nandita     |  4200.00 |            50 |
+| Alexis      |  4100.00 |            50 |
+| Julia       |  3400.00 |            50 |
+| Anthony     |  3000.00 |            50 |
+| Kelly       |  3800.00 |            50 |
+| Jennifer    |  3600.00 |            50 |
+| Timothy     |  2900.00 |            50 |
+| Randall     |  2500.00 |            50 |
+| Sarah       |  4000.00 |            50 |
+| Britney     |  3900.00 |            50 |
+| Samuel      |  3200.00 |            50 |
+| Vance       |  2800.00 |            50 |
+| Alana       |  3100.00 |            50 |
+| Kevin       |  3000.00 |            50 |
+| Donald      |  2600.00 |            50 |
+| Douglas     |  2600.00 |            50 |
+| Jennifer    |  4400.00 |            10 |
+| Pat         |  6000.00 |            20 |
+| Susan       |  6500.00 |            40 |
+| Hermann     | 10000.00 |            70 |
+| William     |  8300.00 |           110 |
++-------------+----------+---------------+
+88 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where E.salary > ANY (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
++-------------+----------+---------------+
+| first_name  | salary   | department_id |
++-------------+----------+---------------+
+| Bruce       |  6000.00 |            60 |
+| David       |  4800.00 |            60 |
+| Valli       |  4800.00 |            60 |
+| Diana       |  4200.00 |            60 |
+| Daniel      |  9000.00 |           100 |
+| John        |  8200.00 |           100 |
+| Ismael      |  7700.00 |           100 |
+| Jose Manuel |  7800.00 |           100 |
+| Luis        |  6900.00 |           100 |
+| Alexander   |  3100.00 |            30 |
+| Shelli      |  2900.00 |            30 |
+| Sigal       |  2800.00 |            30 |
+| Guy         |  2600.00 |            30 |
+| Karen       |  2500.00 |            30 |
+| Julia       |  3200.00 |            50 |
+| Irene       |  2700.00 |            50 |
+| James       |  2400.00 |            50 |
+| Steven      |  2200.00 |            50 |
+| Laura       |  3300.00 |            50 |
+| Mozhe       |  2800.00 |            50 |
+| James       |  2500.00 |            50 |
+| Jason       |  3300.00 |            50 |
+| Michael     |  2900.00 |            50 |
+| Ki          |  2400.00 |            50 |
+| Hazel       |  2200.00 |            50 |
+| Renske      |  3600.00 |            50 |
+| Stephen     |  3200.00 |            50 |
+| John        |  2700.00 |            50 |
+| Joshua      |  2500.00 |            50 |
+| Trenna      |  3500.00 |            50 |
+| Curtis      |  3100.00 |            50 |
+| Randall     |  2600.00 |            50 |
+| Peter       |  2500.00 |            50 |
+| Peter       | 10000.00 |            80 |
+| David       |  9500.00 |            80 |
+| Peter       |  9000.00 |            80 |
+| Christopher |  8000.00 |            80 |
+| Nanette     |  7500.00 |            80 |
+| Oliver      |  7000.00 |            80 |
+| Janette     | 10000.00 |            80 |
+| Patrick     |  9500.00 |            80 |
+| Allan       |  9000.00 |            80 |
+| Lindsey     |  8000.00 |            80 |
+| Louise      |  7500.00 |            80 |
+| Sarath      |  7000.00 |            80 |
+| Clara       | 10500.00 |            80 |
+| Danielle    |  9500.00 |            80 |
+| Mattea      |  7200.00 |            80 |
+| David       |  6800.00 |            80 |
+| Sundar      |  6400.00 |            80 |
+| Amit        |  6200.00 |            80 |
+| Lisa        | 11500.00 |            80 |
+| Harrison    | 10000.00 |            80 |
+| Tayler      |  9600.00 |            80 |
+| William     |  7400.00 |            80 |
+| Elizabeth   |  7300.00 |            80 |
+| Sundita     |  6100.00 |            80 |
+| Ellen       | 11000.00 |            80 |
+| Alyssa      |  8800.00 |            80 |
+| Jonathon    |  8600.00 |            80 |
+| Jack        |  8400.00 |            80 |
+| Kimberely   |  7000.00 |             0 |
+| Charles     |  6200.00 |            80 |
+| Winston     |  3200.00 |            50 |
+| Jean        |  3100.00 |            50 |
+| Martha      |  2500.00 |            50 |
+| Girard      |  2800.00 |            50 |
+| Nandita     |  4200.00 |            50 |
+| Alexis      |  4100.00 |            50 |
+| Julia       |  3400.00 |            50 |
+| Anthony     |  3000.00 |            50 |
+| Kelly       |  3800.00 |            50 |
+| Jennifer    |  3600.00 |            50 |
+| Timothy     |  2900.00 |            50 |
+| Randall     |  2500.00 |            50 |
+| Sarah       |  4000.00 |            50 |
+| Britney     |  3900.00 |            50 |
+| Samuel      |  3200.00 |            50 |
+| Vance       |  2800.00 |            50 |
+| Alana       |  3100.00 |            50 |
+| Kevin       |  3000.00 |            50 |
+| Donald      |  2600.00 |            50 |
+| Douglas     |  2600.00 |            50 |
+| Jennifer    |  4400.00 |            10 |
+| Pat         |  6000.00 |            20 |
+| Susan       |  6500.00 |            40 |
+| Hermann     | 10000.00 |            70 |
+| William     |  8300.00 |           110 |
++-------------+----------+---------------+
+88 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where E.salary > ALL (
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where (salary > ANY
+    -> Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Select salary from employees where department_id IN (select department_id from d' at line 3
+MariaDB [csd2204w18]> Select first_name,salary,department_id from employees E
+    -> where (salary > ANY
+    -> (Select salary from employees where department_id IN (select department_id from departments where location_id IN (select location_id from locations  where country_id ='US'))) and E.employee_id NOT IN (select distinct manager_id from employees);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 3
+MariaDB [csd2204w18]> select employee_id,salary from employees
+    -> where (salary > ANY (select salary from employees where (employee_id IN (SELECT manager_id FROM employees
+    -> )) AND department_id IN (select department_id from departments where location_id IN (select location_id from locations where country_id ='US')))) AND
+    -> employee_id NOT IN (select manager_id from employees);
++-------------+----------+
+| employee_id | salary   |
++-------------+----------+
+|         104 |  6000.00 |
+|         109 |  9000.00 |
+|         110 |  8200.00 |
+|         111 |  7700.00 |
+|         112 |  7800.00 |
+|         113 |  6900.00 |
+|         150 | 10000.00 |
+|         151 |  9500.00 |
+|         152 |  9000.00 |
+|         153 |  8000.00 |
+|         154 |  7500.00 |
+|         155 |  7000.00 |
+|         156 | 10000.00 |
+|         157 |  9500.00 |
+|         158 |  9000.00 |
+|         159 |  8000.00 |
+|         160 |  7500.00 |
+|         161 |  7000.00 |
+|         162 | 10500.00 |
+|         163 |  9500.00 |
+|         164 |  7200.00 |
+|         165 |  6800.00 |
+|         166 |  6400.00 |
+|         167 |  6200.00 |
+|         168 | 11500.00 |
+|         169 | 10000.00 |
+|         170 |  9600.00 |
+|         171 |  7400.00 |
+|         172 |  7300.00 |
+|         173 |  6100.00 |
+|         174 | 11000.00 |
+|         175 |  8800.00 |
+|         176 |  8600.00 |
+|         177 |  8400.00 |
+|         178 |  7000.00 |
+|         179 |  6200.00 |
+|         202 |  6000.00 |
+|         203 |  6500.00 |
+|         204 | 10000.00 |
+|         206 |  8300.00 |
++-------------+----------+
+40 rows in set (0.02 sec)
+
+MariaDB [csd2204w18]> SELECT DISTINCT salary FROM employees e1
+    -> WHERE 5 = (SELECT COUNT(DISTINCT salary)
+    -> FROM employees e2
+    -> WHERE e2.salary >= e1.salary);
++----------+
+| salary   |
++----------+
+| 13000.00 |
++----------+
+1 row in set (0.03 sec)
+
+MariaDB [csd2204w18]> SET @i = 0; SELECT i, employee_id
+Query OK, 0 rows affected (0.00 sec)
+
+    -> FROM (SELECT @i := @i + 1 AS i, employee_id
+    -> FROM employees) a WHERE MOD(a.i, 2) = 0;
++------+-------------+
+| i    | employee_id |
++------+-------------+
+|    2 |         101 |
+|    4 |         103 |
+|    6 |         105 |
+|    8 |         107 |
+|   10 |         109 |
+|   12 |         111 |
+|   14 |         113 |
+|   16 |         115 |
+|   18 |         117 |
+|   20 |         119 |
+|   22 |         121 |
+|   24 |         123 |
+|   26 |         125 |
+|   28 |         127 |
+|   30 |         129 |
+|   32 |         131 |
+|   34 |         133 |
+|   36 |         135 |
+|   38 |         137 |
+|   40 |         139 |
+|   42 |         141 |
+|   44 |         143 |
+|   46 |         145 |
+|   48 |         147 |
+|   50 |         149 |
+|   52 |         151 |
+|   54 |         153 |
+|   56 |         155 |
+|   58 |         157 |
+|   60 |         159 |
+|   62 |         161 |
+|   64 |         163 |
+|   66 |         165 |
+|   68 |         167 |
+|   70 |         169 |
+|   72 |         171 |
+|   74 |         173 |
+|   76 |         175 |
+|   78 |         177 |
+|   80 |         179 |
+|   82 |         181 |
+|   84 |         183 |
+|   86 |         185 |
+|   88 |         187 |
+|   90 |         189 |
+|   92 |         191 |
+|   94 |         193 |
+|   96 |         195 |
+|   98 |         197 |
+|  100 |         199 |
+|  102 |         201 |
+|  104 |         203 |
+|  106 |         205 |
++------+-------------+
+53 rows in set (0.03 sec)
+
+MariaDB [csd2204w18]>
