@@ -1,0 +1,160 @@
+
+Setting environment for using XAMPP for Windows.
+Sree@SREE-DELL-3270 d:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 772
+Server version: 10.1.29-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use madt_database;
+Database changed
+MariaDB [madt_database]> show tables;
++-------------------------+
+| Tables_in_madt_database |
++-------------------------+
+| ac_mast                 |
+| animals                 |
+| client                  |
+| cust_mast               |
+| customer                |
+| dept                    |
+| emp                     |
+| employee                |
+| has_clearance           |
+| manu                    |
+| package                 |
+| pet                     |
+| planet                  |
+| product_view            |
+| products                |
+| shipment                |
+| trans                   |
+| trans_rep               |
+| trans_rep_2             |
++-------------------------+
+19 rows in set (0.31 sec)
+
+MariaDB [madt_database]> select version();
++-----------------+
+| version()       |
++-----------------+
+| 10.1.29-MariaDB |
++-----------------+
+1 row in set (0.11 sec)
+
+MariaDB [madt_database]> show privilages;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'pri
+vilages' at line 1
+MariaDB [madt_database]> show privileges;
++-------------------------+---------------------------------------+-------------
+------------------------------------------+
+| Privilege               | Context                               | Comment
+                                          |
++-------------------------+---------------------------------------+-------------
+------------------------------------------+
+| Alter                   | Tables                                | To alter the
+ table                                    |
+| Alter routine           | Functions,Procedures                  | To alter or
+drop stored functions/procedures          |
+| Create                  | Databases,Tables,Indexes              | To create ne
+w databases and tables                    |
+| Create routine          | Databases                             | To use CREAT
+E FUNCTION/PROCEDURE                      |
+| Create temporary tables | Databases                             | To use CREAT
+E TEMPORARY TABLE                         |
+| Create view             | Tables                                | To create ne
+w views                                   |
+| Create user             | Server Admin                          | To create ne
+w users                                   |
+| Delete                  | Tables                                | To delete ex
+isting rows                               |
+| Drop                    | Databases,Tables                      | To drop data
+bases, tables, and views                  |
+| Event                   | Server Admin                          | To create, a
+lter, drop and execute events             |
+| Execute                 | Functions,Procedures                  | To execute s
+tored routines                            |
+| File                    | File access on server                 | To read and
+write files on the server                 |
+| Grant option            | Databases,Tables,Functions,Procedures | To give to o
+ther users those privileges you possess   |
+| Index                   | Tables                                | To create or
+ drop indexes                             |
+| Insert                  | Tables                                | To insert da
+ta into tables                            |
+| Lock tables             | Databases                             | To use LOCK
+TABLES (together with SELECT privilege)   |
+| Process                 | Server Admin                          | To view the
+plain text of currently executing queries |
+| Proxy                   | Server Admin                          | To make prox
+y user possible                           |
+| References              | Databases,Tables                      | To have refe
+rences on tables                          |
+| Reload                  | Server Admin                          | To reload or
+ refresh tables, logs and privileges      |
+| Replication client      | Server Admin                          | To ask where
+ the slave or master servers are          |
+| Replication slave       | Server Admin                          | To read bina
+ry log events from the master             |
+| Select                  | Tables                                | To retrieve
+rows from table                           |
+| Show databases          | Server Admin                          | To see all d
+atabases with SHOW DATABASES              |
+| Show view               | Tables                                | To see views
+ with SHOW CREATE VIEW                    |
+| Shutdown                | Server Admin                          | To shut down
+ the server                               |
+| Super                   | Server Admin                          | To use KILL
+thread, SET GLOBAL, CHANGE MASTER, etc.   |
+| Trigger                 | Tables                                | To use trigg
+ers                                       |
+| Create tablespace       | Server Admin                          | To create/al
+ter/drop tablespaces                      |
+| Update                  | Tables                                | To update ex
+isting rows                               |
+| Usage                   | Server Admin                          | No privilege
+s - allow connect only                    |
++-------------------------+---------------------------------------+-------------
+------------------------------------------+
+31 rows in set (0.03 sec)
+
+MariaDB [madt_database]> DELIMITER $$;
+MariaDB [madt_database]> select * from emp $$;
++-------+----------+------------+------+-------------------+---------+----------
++---------+---------+----------+
+| empno | name     | jdate      | dept | desig             | basic   | da
+| hra     | pf      | it       |
++-------+----------+------------+------+-------------------+---------+----------
++---------+---------+----------+
+|   123 | Harry    | 2014-10-24 |    5 | Finance Secretary | 2000.00 |  2100.80
+| 1370.50 |  200.40 |   100.89 |
+|   133 | James    | 2016-11-24 |    5 | HR                | 5000.00 |  2400.80
+| 1300.50 |  200.40 |   100.89 |
+|  5555 | Ron      | 2014-10-14 |  141 | Executive         | 3000.00 |  2000.00
+| 1900.78 |  100.40 |    70.89 |
+| 11111 | Sreejith | 2014-07-14 |  111 | Sales Executive   |  600.40 |   100.80
+|  270.50 | 1000.40 |   700.89 |
+| 22222 | Smith    | 2014-06-24 |  222 | Finance Executive | 6000.00 | 13000.00
+| 4000.00 |  200.00 |   300.00 |
+| 33333 | John     | 2015-05-16 |  333 | HR Executive      | 6000.00 |  3000.00
+| 4000.00 |  200.00 |   300.00 |
+| 44444 | Raymond  | 2010-08-10 |  444 | Architect         |  900.40 |   400.80
+|  570.50 | 4000.40 | 10000.89 |
++-------+----------+------------+------+-------------------+---------+----------
++---------+---------+----------+
+7 rows in set (1.35 sec)
+
+MariaDB [madt_database]> DELIMITER;$$
+    -> ;
+    -> DELIMITER ; $$
+    -> ;
+    -> ';
+    '> '$
+    -> $$
+    ->
